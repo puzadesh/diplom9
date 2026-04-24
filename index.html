@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>12 слайдов - резиновый макет</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="slides-container">
+    <!-- Слайд 1 -->
+    <div class="slide" data-slide="0">
+        <div class="slide-content">
+            <img src="images/slide1.webp" alt="Иллюстрация 1" loading="eager">
+            <div class="text-overlay">Там чудеса: там леший бродит</div>
+        </div>
+    </div>
+
+    <!-- Слайд 2 -->
+    <div class="slide" data-slide="1">
+        <div class="slide-content">
+            <img src="images/slide2.webp" alt="Иллюстрация 2" loading="lazy">
+            <div class="text-overlay">Русалка на ветвях сидит</div>
+        </div>
+    </div>
+
+    <!-- Слайд 3 -->
+    <div class="slide" data-slide="2">
+        <div class="slide-content">
+            <img src="images/slide3.webp" alt="Иллюстрация 3" loading="lazy">
+            <div class="text-overlay">Там на неведомых дорожках</div>
+        </div>
+    </div>
+
+    <!-- Добавьте ещё 9 слайдов по той же схеме -->
+</div>
+
+
+<script>
+    // Простая навигация - активация слайда при скролле
+    const slides = document.querySelectorAll('.slide');
+
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('active');
+            } else {
+                entry.target.classList.remove('active');
+            }
+        });
+    }, { threshold: 0.5 });  // слайд считается активным, если виден на 50%
+
+    slides.forEach(slide => {
+        observer.observe(slide);
+    });
+
+    // Плавный скролл между слайдами (опционально)
+    let isScrolling = false;
+
+    window.addEventListener('wheel', (e) => {
+        if (isScrolling) return;
+
+        const delta = e.deltaY;
+        const currentSlide = Array.from(slides).findIndex(slide =>
+            slide.getBoundingClientRect().top >= -100 &&
+            slide.getBoundingClientRect().top < 200
+        );
+
+        if (currentSlide === -1) return;
+
+        let targetSlide = currentSlide;
+        if (delta > 0 && currentSlide < slides.length - 1) {
+            targetSlide = currentSlide + 1;
+        } else if (delta < 0 && currentSlide > 0) {
+            targetSlide = currentSlide - 1;
+        } else {
+            return;
+        }
+
+        isScrolling = true;
+        slides[targetSlide].scrollIntoView({ behavior: 'smooth', block: 'start' });
+
+        setTimeout(() => {
+            isScrolling = false;
+        }, 800);
+    });
+</script>
+</body>
+</html>

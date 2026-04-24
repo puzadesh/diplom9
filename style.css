@@ -1,0 +1,96 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    margin: 0;
+}
+
+body {
+    background: #0a0a0a;
+    font-family: system-ui, -apple-system, sans-serif;
+    margin: 0;
+
+}
+
+/* Контейнер слайдов - вертикальный скролл */
+.slides-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+}
+
+/* Каждый слайд - ровно на весь экран */
+.slide {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    flex-shrink: 0;
+
+    /* Отступы для полей на широких экранах */
+    padding: 0 max(16px, calc((100% - 1200px) / 2));
+}
+
+/* Внутренность слайда - резиновая */
+.slide-content {
+    width: 100%;
+    height: auto;
+    max-width: 1200px;  /* максимальная ширина контента */
+    background: #1a1a1a;
+    overflow: hidden;
+    position: relative;
+}
+
+/* Изображение внутри - cover но без обрезания важного */
+.slide img {
+    width: 100%;
+    height: auto;
+
+    object-position: center;
+    display: block;
+}
+
+
+/* На очень широких экранах - красивые поля */
+@media (min-width: 1600px) {
+    .slide {
+        padding: 0 calc((100% - 1400px) / 2);
+    }
+
+    .slide-content {
+        max-width: 1400px;
+    }
+}
+
+/* Анимации для контента */
+.text-overlay {
+    position: absolute;
+    bottom: 10%;
+    left: 5%;
+    right: 5%;
+    color: white;
+    text-shadow: 0 2px 10px rgba(0,0,0,0.5);
+    font-size: clamp(1rem, 5vw, 2rem);
+    text-align: center;
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+.slide.active .text-overlay {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Навигация */
+.nav-hint {
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    color: rgba(255,255,255,0.5);
+    font-size: 12px;
+    pointer-events: none;
+    z-index: 100;
+}
