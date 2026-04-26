@@ -49,15 +49,15 @@
         }
 
         // Предотвращаем резкий скролл при срабатывании
-        e.preventDefault();
-        isScrolling = true;
-
-        slides[targetIndex].scrollIntoView({ behavior: 'smooth', block: 'start' });
-
-        if (scrollTimeout) clearTimeout(scrollTimeout);
-        scrollTimeout = setTimeout(() => {
-            isScrolling = false;
-        }, 700);
+        // e.preventDefault();
+        // isScrolling = true;
+        //
+        // slides[targetIndex].scrollIntoView({ behavior: 'smooth', block: 'start' });
+        //
+        // if (scrollTimeout) clearTimeout(scrollTimeout);
+        // scrollTimeout = setTimeout(() => {
+        //     isScrolling = false;
+        // }, 700);
     }
 
     // Привязываем событие колесика мыши и тач-панели
@@ -65,14 +65,56 @@
     // Для тач-устройств: используем touchmove для блокировки во время анимации?
     // Но пользователь может скроллить пальцем – обычно браузер сам делает плавно.
     // Добавим легкую защиту от перескока во время isScrolling
-    window.addEventListener('touchmove', function(e) {
-        if (isScrolling) {
-            e.preventDefault();
-        }
-    }, { passive: false });
-
+    // window.addEventListener('touchmove', function(e) {
+    //     if (isScrolling) {
+    //         e.preventDefault();
+    //     }
+    // }, { passive: false });
 
     document.querySelectorAll('.zoomable').forEach(img => {
+
+        img.addEventListener('click', () => {
+
+            let state = Number(img.dataset.state || 0);
+            const zoom = img.dataset.zoom || 1.5;
+            const origin = img.dataset.origin || 'center';
+
+            if (state === 0) {
+                img.style.transformOrigin = origin;
+                img.style.transform = `scale(${zoom})`;
+                img.dataset.state = 1;
+
+            }
+            else {
+                img.style.transform = '';
+                img.dataset.state = 0;
+            }
+
+        });
+
+    });
+    document.querySelectorAll('.scrollable').forEach(img => {
+
+        img.addEventListener('click', () => {
+
+            let state = Number(img.dataset.state || 0);
+            const start = img.dataset.start || 'center';
+            const end = img.dataset.end || 'center';
+
+            if (state === 0) {
+                img.style.objectPosition = end;
+                img.dataset.state = 1;
+            }
+            else {
+                img.style.objectPosition = start;
+                img.dataset.state = 0;
+            }
+
+        });
+
+    });
+
+    document.querySelectorAll('.zoom-scroll').forEach(img => {
 
         img.addEventListener('click', () => {
 
