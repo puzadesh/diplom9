@@ -49,15 +49,15 @@
         }
 
         // Предотвращаем резкий скролл при срабатывании
-        // e.preventDefault();
-        // isScrolling = true;
-        //
-        // slides[targetIndex].scrollIntoView({ behavior: 'smooth', block: 'start' });
-        //
-        // if (scrollTimeout) clearTimeout(scrollTimeout);
-        // scrollTimeout = setTimeout(() => {
-        //     isScrolling = false;
-        // }, 700);
+        e.preventDefault();
+        isScrolling = true;
+
+        slides[targetIndex].scrollIntoView({ behavior: 'smooth', block: 'start' });
+
+        if (scrollTimeout) clearTimeout(scrollTimeout);
+        scrollTimeout = setTimeout(() => {
+            isScrolling = false;
+        }, 700);
     }
 
     // Привязываем событие колесика мыши и тач-панели
@@ -148,6 +148,12 @@
 
         });
 
+    });
+    const slide4 = document.querySelector('.slide[data-slide="2"]');
+    const overlayImg = document.querySelector('.overlay-image');
+
+    slide4.addEventListener('click', () => {
+        overlayImg.classList.add('show');
     });
 
 
