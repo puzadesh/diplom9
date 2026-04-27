@@ -58,7 +58,7 @@ body {
 /*    object-fit: cover;*/
 /*}*/
 .zoom-scroll {
-    transition: transform 0.4s ease, object-position 0.4s ease;
+    transition: transform 0.8s ease, object-position 0.8s ease;
     cursor: pointer;
 
 }
@@ -106,23 +106,58 @@ body {
 .textbox {
     position: absolute;
     inset: 0;
-    top: 0;
-    left: 0;
-    width: 40%;
-    height: 30%;
+    width: 100%;
+    height: 100%;
     pointer-events: none;
     z-index: 20;
-    background: #fd7b7b;
-    font-size: 1vw;
+    overflow: hidden;
+    background: #fdbcbc;
+    opacity: 30%;
 }
-.text {
+
+.text-layer {
     position: absolute;
-    margin: 0;
+    top: 10%;
+    left: 60%;
     font-family: 'Georgia', 'Times New Roman', serif;
     color: #000000;
-    top: 10%;
-    left: 15%;
-    font-size: 3.5vmin;
-    white-space: pre-line; /* сохраняет переносы строк из атрибута data-text */
+    font-size: 4.0vmin;
+    white-space: pre-line;
     pointer-events: none;
+    transition: opacity 0.85s ease-in-out;
+    will-change: opacity;
+    margin: 0;
+}
+
+/* Слои текста */
+.text0  { opacity: 1; }   /* начальный */
+.text1  { opacity: 0; }   /* кот ученый */
+.text2  { opacity: 0; }   /* идёт направо */
+.text3  { opacity: 0; }   /* там чудеса (появится при скролле слайда) */
+.text,
+.text-alternate {
+    position: absolute;
+    top: 10%;
+    left: 10%;
+    font-family: 'Georgia', 'Times New Roman', serif;
+    color: #000000;
+    font-size: 4.0vmin;
+    white-space: pre-line;
+    pointer-events: none;
+    transition: opacity 0.5s ease-in-out;   /* плавно — 0.8 секунды */
+    will-change: opacity;
+    margin: 0;
+}
+/* Начальный текст виден по умолчанию */
+.text {
+    opacity: 1;
+}
+
+/* Альтернативный текст скрыт по умолчанию */
+.text-alternate {
+    opacity: 0;
+}
+/* Для слайда 0 — состояние после зума */
+.slide[data-slide="0"] .text-alternate {
+    /* можно добавить специфические отступы, если нужно */
 }
