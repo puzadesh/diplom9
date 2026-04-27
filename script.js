@@ -149,12 +149,12 @@
         });
 
     });
-    const slide4 = document.querySelector('.slide[data-slide="2"]');
-    const overlayImg = document.querySelector('.overlay-image');
+    const slide3 = document.querySelector('.slide[data-slide="2"]');
+    const overlayImg = slide3.querySelector('.overlay-image');
 
-    slide4.addEventListener('click', () => {
-        overlayImg.classList.add('show');
+    slide3.addEventListener('click', () => {
+        slide3.classList.toggle('clicked');
+        overlayImg.classList.toggle('show');
     });
-
 
     console.log('Панорама готова, клик для движения вправо/влево');
