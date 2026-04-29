@@ -170,13 +170,14 @@ body {
     height: 100%;
     perspective: 1200px;
     perspective-origin: 50% 40%;
+    background: #679771;
 }
 
 .book {
     position: relative;
     width: 620px;
     height: 380px;
-    max-width: 92%;
+    max-width: 65%; max-height: 80%;
     transform-style: preserve-3d;
 }
 
