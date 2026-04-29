@@ -10,6 +10,14 @@ body {
     margin: 0;
 
 }
+html, body {
+    height: 100%;
+    overflow-y: scroll;
+    scroll-behavior: smooth;
+}
+
+
+
 
 /* Контейнер слайдов - вертикальный скролл */
 .slides-container {
@@ -17,6 +25,10 @@ body {
     flex-direction: column;
     align-items: center;
     width: 100%;
+    height: 100vh;
+    overflow-y: auto;
+    scroll-snap-type: y mandatory;
+    -webkit-overflow-scrolling: touch; /* важно для iOS */
 }
 
 /* Каждый слайд - ровно на весь экран */
@@ -26,6 +38,10 @@ body {
     justify-content: center;
     align-items: center;
     background: #ff3a3a;
+    height: 100vh;
+    scroll-snap-align: start;
+    scroll-snap-stop: always;
+    will-change: transform;
 }
 
 /* Внутренность слайда - резиновая */
@@ -43,6 +59,8 @@ body {
     object-fit: cover;
     /*opacity: 0.4;*/
     position: relative;
+    will-change: transform;
+
 
 }
 .img1 {

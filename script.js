@@ -1,75 +1,102 @@
+// ========== ВЕРТИКАЛЬНАЯ НАВИГАЦИЯ ==========
+const slides = document.querySelectorAll('.slide');
+let isScrolling = false;
+let scrollTimeout = null;
+let touchStartY = 0;
 
+// Определяем устройство: телефон или компьютер
+const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
 
-    // 2. ОБРАБОТКА ВЕРТИКАЛЬНОЙ НАВИГАЦИИ (скролл по слайдам с плавным переходом, как в оригинале)
-    const slides = document.querySelectorAll('.slide');
-    let isScrolling = false;
-    let scrollTimeout = null;
+// Функция плавного перехода к слайду
+function goToSlide(index) {
+    if (index < 0 || index >= slides.length) return;
+    if (isScrolling) return;
 
-    const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                entry.target.classList.add('active');
-            } else {
-                entry.target.classList.remove('active');
-            }
-        });
-    }, { threshold: 0.45 }); // чуть меньше 0.5 для более раннего переключения
+    isScrolling = true;
+    slides[index].scrollIntoView({ behavior: 'smooth', block: 'start' });
 
-    slides.forEach(slide => {
-        observer.observe(slide);
-    });
+    clearTimeout(scrollTimeout);
+    scrollTimeout = setTimeout(() => {
+        isScrolling = false;
+    }, 700);
+}
 
-    // Скролл с привязкой к слайдам (как в исходном коде, но улучшено для телефонов)
-    function handleWheel(e) {
-        if (isScrolling) {
-            e.preventDefault();
-            return;
+// Определение текущего слайда (по верху экрана)
+function getCurrentSlideIndex() {
+    for (let i = 0; i < slides.length; i++) {
+        const rect = slides[i].getBoundingClientRect();
+        // Слайд активен, если его верхняя часть в пределах 150px от верха
+        if (rect.top <= 150 && rect.bottom >= 150) {
+            return i;
         }
+    }
+    return 0;
+}
 
-        // Определяем текущий слайд (на основе видимости верхней части)
-        let currentSlideIndex = -1;
-        for (let i = 0; i < slides.length; i++) {
-            const rect = slides[i].getBoundingClientRect();
-            // Если слайд находится в верхней половине экрана или его верхняя часть видна
-            if (rect.top <= 150 && rect.bottom >= 150) {
-                currentSlideIndex = i;
-                break;
-            }
-        }
-        if (currentSlideIndex === -1) return;
-
-        const delta = e.deltaY || (e.detail ? e.detail : 0);
-        let targetIndex = currentSlideIndex;
-        if (delta > 0 && currentSlideIndex < slides.length - 1) {
-            targetIndex = currentSlideIndex + 1;
-        } else if (delta < 0 && currentSlideIndex > 0) {
-            targetIndex = currentSlideIndex - 1;
-        } else {
-            return;
-        }
-
-        // Предотвращаем резкий скролл при срабатывании
+// ========== ДЛЯ КОМПЬЮТЕРА (колесико мыши) ==========
+function handleWheel(e) {
+    if (isScrolling) {
         e.preventDefault();
-        isScrolling = true;
-
-        slides[targetIndex].scrollIntoView({ behavior: 'smooth', block: 'start' });
-
-        if (scrollTimeout) clearTimeout(scrollTimeout);
-        scrollTimeout = setTimeout(() => {
-            isScrolling = false;
-        }, 700);
+        return;
     }
 
-    // Привязываем событие колесика мыши и тач-панели
+    const currentIndex = getCurrentSlideIndex();
+    const delta = e.deltaY;
+
+    if (delta > 0 && currentIndex < slides.length - 1) {
+        e.preventDefault();
+        goToSlide(currentIndex + 1);
+    } else if (delta < 0 && currentIndex > 0) {
+        e.preventDefault();
+        goToSlide(currentIndex - 1);
+    }
+}
+
+// ========== ДЛЯ ТЕЛЕФОНОВ (touch-события) ==========
+function handleTouchStart(e) {
+    touchStartY = e.touches[0].clientY;
+}
+
+function handleTouchMove(e) {
+    if (isScrolling) {
+        e.preventDefault();
+        return;
+    }
+
+    const touchEndY = e.touches[0].clientY;
+    const deltaY = touchStartY - touchEndY;
+    const currentIndex = getCurrentSlideIndex();
+
+    if (Math.abs(deltaY) < 50) return;
+
+    if (deltaY > 0 && currentIndex < slides.length - 1) {
+        e.preventDefault();
+        goToSlide(currentIndex + 1);
+    } else if (deltaY < 0 && currentIndex > 0) {
+        e.preventDefault();
+        goToSlide(currentIndex - 1);
+    }
+
+    touchStartY = touchEndY;
+}
+
+// Блокировка нативного скролла во время анимации (для телефонов)
+function preventScroll(e) {
+    if (isScrolling) {
+        e.preventDefault();
+    }
+}
+
+// ========== ПОДКЛЮЧЕНИЕ СОБЫТИЙ В ЗАВИСИМОСТИ ОТ УСТРОЙСТВА ==========
+if (isTouchDevice) {
+    // Для телефонов: только touch, без wheel
+    window.addEventListener('touchstart', handleTouchStart, { passive: false });
+    window.addEventListener('touchmove', handleTouchMove, { passive: false });
+    window.addEventListener('touchmove', preventScroll, { passive: false });
+} else {
+    // Для компьютера: только wheel (как было изначально)
     window.addEventListener('wheel', handleWheel, { passive: false });
-    // Для тач-устройств: используем touchmove для блокировки во время анимации?
-    // Но пользователь может скроллить пальцем – обычно браузер сам делает плавно.
-    // Добавим легкую защиту от перескока во время isScrolling
-    // window.addEventListener('touchmove', function(e) {
-    //     if (isScrolling) {
-    //         e.preventDefault();
-    //     }
-    // }, { passive: false });
+}
 
     document.querySelectorAll('.zoomable').forEach(img => {
 
