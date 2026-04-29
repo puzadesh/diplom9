@@ -41,7 +41,7 @@ body {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    opacity: 0.4;
+    /*opacity: 0.4;*/
     position: relative;
 
 }
@@ -50,13 +50,7 @@ body {
 }
 .img2 {object-position: bottom;}
 
-/*.zoomable {*/
-/*    transition: transform 0.4s ease, object-position 0.4s ease;*/
-/*    cursor: zoom-in;*/
-/*    width: 100%;*/
-/*    height: 100%;*/
-/*    object-fit: cover;*/
-/*}*/
+
 .zoom-scroll {
     transition: transform 0.8s ease, object-position 0.8s ease;
     cursor: pointer;
@@ -111,15 +105,15 @@ body {
     pointer-events: none;
     z-index: 20;
     overflow: hidden;
-    background: #fdbcbc;
-    opacity: 30%;
+    /*background: #fdbcbc;*/
+    /*opacity: 30%;*/
 }
 
 .text-layer {
     position: absolute;
     top: 10%;
     left: 60%;
-    font-family: 'Georgia', 'Times New Roman', serif;
+    font-family: 'Monomakh', serif;
     color: #000000;
     font-size: 4.0vmin;
     white-space: pre-line;
@@ -139,7 +133,7 @@ body {
     position: absolute;
     top: 10%;
     left: 10%;
-    font-family: 'Georgia', 'Times New Roman', serif;
+    font-family: 'Monomakh', serif;
     color: #000000;
     font-size: 4.0vmin;
     white-space: pre-line;
@@ -161,3 +155,153 @@ body {
 .slide[data-slide="0"] .text-alternate {
     /* можно добавить специфические отступы, если нужно */
 }
+@font-face {
+    font-family: 'Monomakh', serif;  /* Замените на название вашего шрифта */
+    src: url('images/fonts/ofont.ru_Monomakh Unicode.ttf') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap
+}
+/* ====================== АНИМАЦИЯ КНИГИ (ИСПРАВЛЕННАЯ) ====================== */
+.book-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    perspective: 1200px;
+    perspective-origin: 50% 40%;
+}
+
+.book {
+    position: relative;
+    width: 620px;
+    height: 380px;
+    max-width: 92%;
+    transform-style: preserve-3d;
+}
+
+/* Правая страница (разворот) */
+.book-page {
+    position: absolute;
+    width: 50%;
+    height: 100%;
+    top: 0;
+    right: 0;
+    background: #f8f1e3;
+    box-shadow: -8px 0 20px rgba(0,0,0,0.25);
+    padding: 35px 30px;
+    font-family: 'Monomakh', Georgia, serif;
+    color: #2c1f14;
+    transition: transform 2.2s cubic-bezier(0.65, 0.05, 0.35, 1);
+    border-radius: 0 4px 4px 0;
+    backface-visibility: hidden;
+    transform-origin: left center;
+}
+
+/* Обложка (верхний слой, лежит поверх страницы) */
+.book-cover {
+    position: absolute;
+    width: 50%;
+    height: 100%;
+    top: 0;
+    right: 0;
+    transform-origin: left center;
+    z-index: 10;
+    transition: transform 2.2s cubic-bezier(0.65, 0.05, 0.35, 1);
+    transform-style: preserve-3d;
+}
+
+/* Лицевая сторона обложки (видна в закрытом состоянии) */
+.cover-front {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, #5c2a0e, #8b4513);
+    color: #f4e9d8;
+    border-radius: 0 4px 4px 0;
+    backface-visibility: hidden;
+    box-shadow: inset 0 0 30px rgba(0,0,0,0.15);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 40px 20px;
+}
+
+/* Внутренняя сторона обложки (видна, когда книга открыта) */
+.cover-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: #e8dcc8;
+    border-radius: 4px 0 0 4px;
+    backface-visibility: hidden;
+    transform: rotateY(180deg);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 40px 20px;
+    color: #5c2a0e;
+    box-shadow: inset 0 0 20px rgba(0,0,0,0.1);
+}
+
+/* Текст на внутренней стороне */
+.cover-back p {
+    font-size: 3vmin;
+    font-style: italic;
+    font-family: 'Monomakh', Georgia, serif;
+}
+
+/* Анимация открытия: обложка откидывается, страница чуть поворачивается */
+.book.open .book-cover {
+    transform: rotateY(-175deg);
+}
+
+.book.open .book-page {
+    transform: rotateY(-15deg);
+}
+
+/* Содержимое страницы */
+.page-content {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.page-content h2 {
+    font-size: 3.8vmin;
+    margin-bottom: 25px;
+    text-align: center;
+    color: #3c2a1f;
+}
+
+.intro-text {
+    font-size: 3.1vmin;
+    line-height: 1.45;
+    margin-bottom: 30px;
+}
+
+.continue-hint {
+    margin-top: auto;
+    text-align: center;
+    font-size: 2.4vmin;
+    opacity: 0.7;
+    font-style: italic;
+}
+
+.book-title {
+    font-size: 5.2vmin;
+    margin-bottom: 20px;
+    text-shadow: 0 2px 8px rgba(0,0,0,0.6);
+    line-height: 1.1;
+}
+
+.book-author {
+    font-size: 3.2vmin;
+    opacity: 0.95;
+}
+

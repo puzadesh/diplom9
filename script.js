@@ -176,5 +176,22 @@
         }
     });
 
+    // === АНИМАЦИЯ ОТКРЫТИЯ КНИГИ НА ПЕРВОМ СЛАЙДЕ ===
+    const startSlide = document.querySelector('.slide[data-slide="start"]');
+    const book = document.getElementById('opening-book');
 
-    console.log('Панорама готова, клик для движения вправо/влево');
+    if (startSlide && book) {
+        // Запускаем анимацию через небольшую задержку после загрузки
+        setTimeout(() => {
+            book.classList.add('open');
+        }, 800);
+
+        // Опционально: если пользователь кликнет по книге — ускорить анимацию
+        book.addEventListener('click', () => {
+            book.style.transitionDuration = '1.1s';
+            book.classList.add('open');
+        });
+    }
+
+
+
