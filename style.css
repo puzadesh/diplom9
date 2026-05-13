@@ -12,7 +12,7 @@ body {
 }
 html, body {
     height: 100%;
-    overflow-y: scroll;
+    overflow-y: hidden;
     scroll-behavior: smooth;
 }
 
@@ -324,3 +324,49 @@ html, body {
     opacity: 0.95;
 }
 
+/* ========== СЛАЙД 4: ОБМЕН РАЗМЫТИЕМ ========== */
+.slide[data-slide="3"] .slide-content {
+    position: relative;
+    cursor: pointer;
+}
+
+/* Основное изображение (первое img в слайде) */
+.slide[data-slide="3"] .slide-content img:first-child {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    position: relative;
+    z-index: 1;
+    transition: filter 0.4s ease;
+    filter: blur(8px);           /* Изначально размыто */
+}
+
+/* Наложение (второе img в слайде) */
+.slide[data-slide="3"] .overlay-blur {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: 10;
+    pointer-events: none;
+    transition: filter 0.4s ease;
+    filter: blur(0);             /* Изначально чёткое */
+}
+
+/* ПОСЛЕ КЛИКА: меняем размытие */
+.slide[data-slide="3"].clicked .slide-content img:first-child {
+    filter: blur(0);             /* Становится чётким */
+}
+
+.slide[data-slide="3"].clicked .overlay-blur {
+    filter: blur(8px);           /* Становится размытым */
+}
+
+/* Аппаратное ускорение */
+.slide[data-slide="3"] .slide-content img:first-child,
+.slide[data-slide="3"] .overlay-blur {
+    will-change: filter;
+    backface-visibility: hidden;
+}

@@ -220,5 +220,28 @@ if (isTouchDevice) {
         });
     }
 
+// ========== СЛАЙД 4 (data-slide="3"): ТЕКСТ + ОБМЕН РАЗМЫТИЯ ==========
+const slide4 = document.querySelector('.slide[data-slide="3"]');
 
+if (slide4) {
+    let isClicked = false;
+    const defaultText4 = slide4.querySelector('.text[data-default]');
+    const altText4 = slide4.querySelector('.text-alternate');
+
+    slide4.addEventListener('click', () => {
+        if (!isClicked) {
+            slide4.classList.add('clicked');
+            // Меняем текст
+            if (defaultText4) defaultText4.style.opacity = '0';
+            if (altText4) altText4.style.opacity = '1';
+            isClicked = true;
+        } else {
+            slide4.classList.remove('clicked');
+            // Возвращаем текст
+            if (defaultText4) defaultText4.style.opacity = '1';
+            if (altText4) altText4.style.opacity = '0';
+            isClicked = false;
+        }
+    });
+}
 
