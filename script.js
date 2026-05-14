@@ -1,102 +1,52 @@
-// ========== ВЕРТИКАЛЬНАЯ НАВИГАЦИЯ ==========
-const slides = document.querySelectorAll('.slide');
-let isScrolling = false;
+// === УЛУЧШЕННЫЙ SCROLL-SNAP ДЛЯ КОЛЁСИКА И ТАЧПАДА ===
 let scrollTimeout = null;
-let touchStartY = 0;
+let isSnapping = false;
 
-// Определяем устройство: телефон или компьютер
-const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+const slidesContainer = document.querySelector('.slides-container');
+const slides = Array.from(document.querySelectorAll('.slide'));
 
-// Функция плавного перехода к слайду
 function goToSlide(index) {
     if (index < 0 || index >= slides.length) return;
-    if (isScrolling) return;
 
-    isScrolling = true;
-    slides[index].scrollIntoView({ behavior: 'smooth', block: 'start' });
+    isSnapping = true;
+    slides[index].scrollIntoView({
+        behavior: 'smooth',
+        block: 'start'
+    });
 
+    // Снимаем флаг после завершения анимации
     clearTimeout(scrollTimeout);
     scrollTimeout = setTimeout(() => {
-        isScrolling = false;
-    }, 700);
+        isSnapping = false;
+    }, 900); // чуть больше длительности smooth
 }
 
-// Определение текущего слайда (по верху экрана)
-function getCurrentSlideIndex() {
-    for (let i = 0; i < slides.length; i++) {
-        const rect = slides[i].getBoundingClientRect();
-        // Слайд активен, если его верхняя часть в пределах 150px от верха
-        if (rect.top <= 150 && rect.bottom >= 150) {
-            return i;
-        }
-    }
-    return 0;
-}
-
-// ========== ДЛЯ КОМПЬЮТЕРА (колесико мыши) ==========
-function handleWheel(e) {
-    if (isScrolling) {
+slidesContainer.addEventListener('wheel', (e) => {
+    // Если уже идёт принудительная анимация — игнорируем
+    if (isSnapping) {
         e.preventDefault();
         return;
     }
 
-    const currentIndex = getCurrentSlideIndex();
-    const delta = e.deltaY;
+    // Небольшие движения (типично для тачпада) — даём браузеру самому обработать
+    if (Math.abs(e.deltaY) < 40) return;
 
-    if (delta > 0 && currentIndex < slides.length - 1) {
-        e.preventDefault();
-        goToSlide(currentIndex + 1);
-    } else if (delta < 0 && currentIndex > 0) {
-        e.preventDefault();
-        goToSlide(currentIndex - 1);
-    }
-}
+    // Для более сильных движений (колёсико мыши) — помогаем
+    e.preventDefault();
 
-// ========== ДЛЯ ТЕЛЕФОНОВ (touch-события) ==========
-function handleTouchStart(e) {
-    touchStartY = e.touches[0].clientY;
-}
+    const currentIndex = Math.round(slidesContainer.scrollTop / window.innerHeight);
+    let nextIndex = currentIndex;
 
-function handleTouchMove(e) {
-    if (isScrolling) {
-        e.preventDefault();
-        return;
+    if (e.deltaY > 0) {
+        nextIndex = Math.min(currentIndex + 1, slides.length - 1);
+    } else {
+        nextIndex = Math.max(currentIndex - 1, 0);
     }
 
-    const touchEndY = e.touches[0].clientY;
-    const deltaY = touchStartY - touchEndY;
-    const currentIndex = getCurrentSlideIndex();
-
-    if (Math.abs(deltaY) < 50) return;
-
-    if (deltaY > 0 && currentIndex < slides.length - 1) {
-        e.preventDefault();
-        goToSlide(currentIndex + 1);
-    } else if (deltaY < 0 && currentIndex > 0) {
-        e.preventDefault();
-        goToSlide(currentIndex - 1);
+    if (nextIndex !== currentIndex) {
+        goToSlide(nextIndex);
     }
-
-    touchStartY = touchEndY;
-}
-
-// Блокировка нативного скролла во время анимации (для телефонов)
-function preventScroll(e) {
-    if (isScrolling) {
-        e.preventDefault();
-    }
-}
-
-// ========== ПОДКЛЮЧЕНИЕ СОБЫТИЙ В ЗАВИСИМОСТИ ОТ УСТРОЙСТВА ==========
-if (isTouchDevice) {
-    // Для телефонов: только touch, без wheel
-    window.addEventListener('touchstart', handleTouchStart, { passive: false });
-    window.addEventListener('touchmove', handleTouchMove, { passive: false });
-    window.addEventListener('touchmove', preventScroll, { passive: false });
-} else {
-    // Для компьютера: только wheel (как было изначально)
-    window.addEventListener('wheel', handleWheel, { passive: false });
-}
+}, { passive: false });
 
     document.querySelectorAll('.zoomable').forEach(img => {
 

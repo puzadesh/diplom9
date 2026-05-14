@@ -34,6 +34,8 @@ html, body {
     overflow-y: auto;
     scroll-snap-type: y mandatory;
     -webkit-overflow-scrolling: touch; /* важно для iOS */
+    scroll-behavior: smooth;           /* уже должно быть */
+    overscroll-behavior-y: contain;    /* добавь */
 }
 
 /* Каждый слайд - ровно на весь экран */
@@ -214,10 +216,50 @@ html, body {
 
 .book {
     position: relative;
-    width: 620px;
-    height: 380px;
-    max-width: 65%; max-height: 80%;
+    width: min(90%, 620px);
+    height: auto;
+    aspect-ratio: 620 / 380; /* Сохраняем пропорции 620:380 */
+    max-width: 620px;
+    max-height: 80vh;
     transform-style: preserve-3d;
+}
+/* Адаптация для телефонов */
+@media (max-width: 768px) {
+    .book {
+        width: min(95%, 500px);
+        height: auto;
+        aspect-ratio: 620 / 380;
+    }
+
+    .book-page, .book-cover {
+        width: 50%;
+        height: 100%;
+    }
+
+    .page-content {
+        padding: 15px;
+    }
+
+    .page-content h2 {
+        font-size: 3.5vmin;
+        margin-bottom: 15px;
+    }
+
+    .intro-text {
+        font-size: 2.8vmin;
+    }
+
+    .continue-hint {
+        font-size: 2.2vmin;
+    }
+
+    .book-title {
+        font-size: 4.5vmin;
+    }
+
+    .book-author {
+        font-size: 2.8vmin;
+    }
 }
 
 /* Правая страница (разворот) */
