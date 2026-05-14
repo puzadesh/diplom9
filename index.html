@@ -20,7 +20,6 @@
                             У лукоморья дуб зелёный;<br>
                             Златая цепь на дубе том…
                         </p>
-                        <div class="continue-hint">Листайте вниз, чтобы продолжить историю ↓</div>
                     </div>
                 </div>
                 <!-- Обложка (лежит поверх) с двумя сторонами -->
@@ -30,7 +29,6 @@
                         <p class="book-author">Александр Пушкин</p>
                     </div>
                     <div class="cover-back">
-                        <p>✨ Откройте книгу ✨</p>
                     </div>
                 </div>
             </div>
@@ -71,6 +69,7 @@
             <img src="images/slide2.webp" alt="Иллюстрация 2" loading="lazy" class="img2 scrollable"
                  data-start="bottom"
                  data-end="top">
+
         </div>
     </div>
 
@@ -100,12 +99,13 @@
         <div class="slide-content">
             <img src="images/slide4_0.webp" alt="Иллюстрация 4" loading="lazy">
             <img src="images/slide4_1.webp" alt="Наложение" class="overlay-blur" loading="lazy">
+            <img src="images/slide4_3.png" alt="Дополнительный элемент" class="overlay-image-2" loading="lazy">
             <div class="textbox">
-                <div class="text" data-default style="left: 10%; top: 60%">
+                <div class="text" data-default style="left: 60%; top: 65%">
                     Там королевич мимоходом<br>
                     Пленяет грозного царя;
                 </div>
-                <div class="text-alternate" style="left: 10%; top: 60%">
+                <div class="text-alternate" style="left: 60%; top: 60%">
                     Там в облаках перед народом<br>
                     Через леса, через моря<br>
                     Колдун несёт богатыря;
@@ -116,13 +116,14 @@
 
     <div class="slide" data-slide="4">
         <div class="slide-content">
-            <img src="images/slide5.webp" alt="Иллюстрация 5" loading="lazy">
+            <img src="images/slide5_1.png" alt="Иллюстрация 5" loading="lazy">
         </div>
     </div>
 
     <div class="slide" data-slide="5">
         <div class="slide-content">
-            <img src="images/slide6.webp" alt="Иллюстрация 6" loading="lazy">
+            <img src="images/slide6_1.png" alt="Иллюстрация 6" loading="lazy">
+
         </div>
     </div>
 
@@ -133,27 +134,32 @@
     </div>
 
 
+    <!-- Слайд 11 — Закрывающаяся книга -->
     <div class="slide" data-slide="11">
         <div class="slide-content last-slide-content">
-            <!-- Книга (изначально большая) -->
-            <div class="book book-final open" id="final-book">
-                <!-- Левая страница (обложка) -->
+            <div class="book book-final" id="closing-book">
+                <!-- Правая страница (разворот) — видна когда открыта -->
+                <div class="book-page">
+                    <div class="page-content">
+                        <div class="book-text">
+<!--                            <p class="intro-text">-->
+                            <p> там я был, и мёд я пил;<br>
+                            У моря видел дуб зелёный;<br>
+                            Под ним сидел, и кот учёный<br>
+                            Свои мне сказки говорил.<br>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Обложка -->
                 <div class="book-cover">
                     <div class="cover-front">
                         <h1 class="book-title">Руслан<br>и Людмила</h1>
                         <p class="book-author">Александр Пушкин</p>
                     </div>
                     <div class="cover-back">
-                        <img src="images/slide4.webp" alt="Иллюстрация 12" class="final-image">
-                    </div>
-                </div>
-                <!-- Правая страница (разворот) - здесь текст -->
-                <div class="book-page">
-                    <div class="page-content">
-                        <div class="book-text">
-                            <h2>Конец</h2>
-                            <p>И жили они долго и счастливо...</p>
-                        </div>
+                        <img src="images/slide4.webp" alt="Финальная иллюстрация" class="final-image">
                     </div>
                 </div>
             </div>
