@@ -22,27 +22,19 @@ function goToSlide(index) {
 }
 
 slidesContainer.addEventListener('wheel', (e) => {
-    // Если уже идёт принудительная анимация — игнорируем
     if (isSnapping) {
         e.preventDefault();
         return;
     }
-
-    // Небольшие движения (типично для тачпада) — даём браузеру самому обработать
     if (Math.abs(e.deltaY) < 40) return;
-
-    // Для более сильных движений (колёсико мыши) — помогаем
     e.preventDefault();
-
     const currentIndex = Math.round(slidesContainer.scrollTop / window.innerHeight);
     let nextIndex = currentIndex;
-
     if (e.deltaY > 0) {
         nextIndex = Math.min(currentIndex + 1, slides.length - 1);
     } else {
         nextIndex = Math.max(currentIndex - 1, 0);
     }
-
     if (nextIndex !== currentIndex) {
         goToSlide(nextIndex);
     }
@@ -125,7 +117,7 @@ document.querySelectorAll('.zoom-scroll').forEach(img => {
 
             // Панорама — делаем максимально плавно
             img.style.transition = 'object-position 1.1s cubic-bezier(0.25, 0.1, 0.25, 1)';
-            img.style.objectPosition = img.dataset.shift || '25%';
+            img.style.objectPosition = img.dataset.shift || '0%';
 
             setTimeout(() => {
                 if (text3) text3.style.opacity = '1';
@@ -169,40 +161,50 @@ document.querySelectorAll('.zoom-scroll').forEach(img => {
         });
     }
 
-// ========== СЛАЙД 3 (data-slide="3"): ТЕКСТ + РАЗМЫТИЕ + ВТОРОЕ ИЗОБРАЖЕНИЕ ==========
+// ========== СЛАЙД 3 (data-slide="3"): ТЕКСТ + РАЗМЫТИЕ + НАЛОЖЕНИЯ ==========
 const slide4 = document.querySelector('.slide[data-slide="3"]');
 
 if (slide4) {
     let clickCount = 0;
     const defaultText4 = slide4.querySelector('.text[data-default]');
     const altText4 = slide4.querySelector('.text-alternate');
-    const overlayImage2 = slide4.querySelector('.overlay-image-2');
+    const thirdText = slide4.querySelector('.text-third');
+    const overlayBlur = slide4.querySelector('.overlay-blur');      // slide4_2.png
+    const overlayImage2 = slide4.querySelector('.overlay-image-2'); // slide4_3.png
+    const overlayImage3 = slide4.querySelector('.overlay-image-3');
 
     // Начальное состояние
     defaultText4.style.opacity = '1';
     altText4.style.opacity = '0';
+    if (thirdText) thirdText.style.opacity = '0';
     if (overlayImage2) overlayImage2.style.opacity = '0';
+    if (overlayImage3) overlayImage3.style.opacity = '0';
 
     slide4.addEventListener('click', () => {
         clickCount++;
 
         if (clickCount === 1) {
-            // Первый клик: меняем текст, размытие
+            // Первый клик: меняем текст + размытие
             slide4.classList.add('clicked');
             defaultText4.style.opacity = '0';
             altText4.style.opacity = '1';
+            if (overlayImage2) overlayImage2.style.opacity = '1';
 
         } else if (clickCount === 2) {
-            // Второй клик: появляется второе изображение
-            if (overlayImage2) {
-                overlayImage2.style.opacity = '1';
-            }
-            // Не даём кликать дальше
-            clickCount = 2;
+
+            defaultText4.style.opacity = '0';
+            altText4.style.opacity = '0';
+
+            if (thirdText) thirdText.style.opacity = '1';
+
+            if (overlayBlur) overlayBlur.style.opacity = '0';
+            if (overlayImage2) overlayImage2.style.opacity = '0';
+
+            // Появляется slide4_4.png
+            if (overlayImage3) overlayImage3.style.opacity = '1';
         }
     });
 }
-
 // ========== ПОСЛЕДНИЙ СЛАЙД — КНИГА ОТКРЫВАЕТСЯ ПО КЛИКУ ==========
 const lastSlide = document.querySelector('.slide[data-slide="11"]');
 const closingBook = document.getElementById('closing-book');
