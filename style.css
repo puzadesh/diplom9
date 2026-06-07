@@ -468,7 +468,7 @@ html, body {
 .slide[data-slide="3"] .overlay-image-3 {
     position: absolute;
     right: 14%;
-    bottom: 0%;
+    bottom: 0;
     width: 28%;
     height: auto;
     z-index: 16;
