@@ -65,9 +65,12 @@ html, body {
 .slide-content {
     aspect-ratio: 16 / 9;
     width: min(100%, calc(100dvh * 16 / 9));
+    max-width: 1400px;           /* глобальный максимум */
+    height: 100%;                /* важно */
     overflow: hidden;
     background: #C07E63;
     position: relative;
+    margin: 0 auto;              /* центрирование */
 }
 
 .slide img:not(.overlay-image) {
@@ -136,13 +139,15 @@ html, body {
 .overlay-image.show {
     transform: translate3d(0, 0, 0);
 }
-@media (min-width: 1600px) {
+@media (min-width: 1401px) {
     .slide {
-        padding: 0 calc((100% - 1400px) / 2);
+        padding: 0;
     }
 
     .slide-content {
-        max-width: 1400px;
+        width: 1400px;
+        height: 100%;
+        aspect-ratio: auto;
     }
 }
 
