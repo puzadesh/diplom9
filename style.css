@@ -65,7 +65,7 @@ html, body {
 .slide-content {
     aspect-ratio: 16 / 9;
     width: min(100%, calc(100dvh * 16 / 9));
-    max-width: 1400px;           /* глобальный максимум */
+    /*max-width: 1500px;           !* глобальный максимум *!*/
     height: 100%;                /* важно */
     overflow: hidden;
     background: #C07E63;
@@ -139,17 +139,17 @@ html, body {
 .overlay-image.show {
     transform: translate3d(0, 0, 0);
 }
-@media (min-width: 1401px) {
-    .slide {
-        padding: 0;
-    }
+/*@media (min-width: 1200px) {*/
+/*    .slide {*/
+/*        padding: 0;*/
+/*    }*/
 
-    .slide-content {
-        width: 1400px;
-        height: 100%;
-        aspect-ratio: auto;
-    }
-}
+/*    .slide-content {*/
+/*        !*width: 1400px;*!*/
+/*        height: 100%;*/
+/*        aspect-ratio: auto;*/
+/*    }*/
+/*}*/
 
 .photo-stage {
     overflow: hidden;
@@ -234,14 +234,14 @@ html, body {
 
 .book {
      position: relative;
-     width: min(90%, 620px);
+     width: min(50%);
      height: auto;
      aspect-ratio: 620 / 380; /* Сохраняем пропорции 620:380 */
      /*max-width: 90vh;*/
      max-height: 80vh;
      transform-style: preserve-3d;
  }
-/* Адаптация для телефонов */
+ /*Адаптация для телефонов */
 @media (max-width: 768px) {
     .book {
         width: min(95%, 500px);
