@@ -25,11 +25,10 @@ html, body {
 /* Для каждого слайда свой цвет фона, подходящий к изображению */
 .slide[data-slide="0"] { background: #2d5a3a; }  /* зелёный — под лес/лукоморье */
 .slide[data-slide="1"] { background: #1a3a2a; }  /* тёмно-зелёный */
-.slide[data-slide="2"] {
-    background: radial-gradient(ellipse at center, #4a3a2a 0%, #1a0a0a 100%);
-}.slide[data-slide="3"] { background: #2a3a4a; }  /* синеватый — под воду/море */
-.slide[data-slide="4"] { background: #3a2a2a; }  /* тёмно-бордовый */
-.slide[data-slide="5"] { background: #2a2a3a; }  /* тёмно-синий */
+.slide[data-slide="2"] { background: linear-gradient(to bottom, #9b92b0, #c3a4ac, #e28e2e); } /* для книги */
+.slide[data-slide="3"] { background: linear-gradient(to bottom, #98747b, #7a576e, #78556c); }  /* тёмно-бордовый */
+.slide[data-slide="4"] { background: linear-gradient(to bottom, #da7d5e, #796b83, #0f1312, #131c23); }  /* тёмно-бордовый */
+.slide[data-slide="5"] { background: radial-gradient(ellipse at center, #3e3c34 0%, #171a17 90%); }  /* тёмно-синий */
 .slide[data-slide="start"] { background: #3a4a2a; } /* для книги */
 .slide[data-slide="11"] { background: #2a1a0a; }  /* для финальной книги */
 
@@ -290,7 +289,7 @@ html, body {
     height: 100%;
     top: 0;
     right: 0;
-    background: #f8f1e3;
+    background: url('images/test3.png') center/cover no-repeat;
     box-shadow: -8px 0 20px rgba(0,0,0,0.25);
     padding: 35px 30px;
     font-family: 'Monomakh', Georgia, serif;
@@ -319,8 +318,7 @@ html, body {
     position: absolute;
     width: 100%;
     height: 100%;
-    background: linear-gradient(135deg, #5c2a0e, #8b4513);
-    color: #f4e9d8;
+    background: url('images/test.webp') center/cover no-repeat;
     border-radius: 0 4px 4px 0;
     backface-visibility: hidden;
     box-shadow: inset 0 0 30px rgba(0,0,0,0.15);
@@ -337,7 +335,7 @@ html, body {
     position: absolute;
     width: 100%;
     height: 100%;
-    background: #e8dcc8;
+    background: url('images/test3.png') center/cover no-repeat;
     border-radius: 4px 0 0 4px;
     backface-visibility: hidden;
     transform: rotateY(180deg);
@@ -399,13 +397,16 @@ html, body {
 .book-title {
     font-size: 5.2vmin;
     margin-bottom: 20px;
-    text-shadow: 0 2px 8px rgba(0,0,0,0.6);
+    /*text-shadow: 0 2px 8px rgba(0,0,0,0.6);*/
     line-height: 1.1;
+    color: #1d120b;
 }
 
 .book-author {
     font-size: 3.2vmin;
     opacity: 0.95;
+    color: #1d120b;
+
 }
 
 /* ========== СЛАЙД 4: ОБМЕН РАЗМЫТИЕМ ========== */
@@ -589,24 +590,114 @@ html, body {
 }
 
 
-/* Простая белая плашка без размытия (легче для производительности) */
-/* Прямоугольная плашка с градиентом от центра к краям (без видимых границ) */
-/* Прямоугольная плашка с градиентом — прозрачная у краёв */
+/* Полупрозрачная плашка: размытие только у самой подложки, не у изображения */
 .text-layer, .text, .text-alternate, .text-third {
-    background: radial-gradient(
-            ellipse at center,
-            rgba(255, 255, 255, 0.8) 0%,
-            rgba(255, 255, 255, 0.75) 20%,
-
-            rgba(255, 255, 255, 0.28) 78%,
-            rgba(255, 255, 255, 0.08) 90%,
-            rgba(255, 255, 255, 0.00) 100%
-    );;
-    padding: 10px 38px 48px 38px;
-    border-radius: 4px;           /* почти прямоугольник */
+    padding: 0.1em 0.9em 0.8em 0.9em;
+    border-radius: 4px;
     display: inline-block;
     max-width: 90%;
 }
 
+.text-layer::before,
+.text::before,
+.text-alternate::before,
+.text-third::before {
+    content: '';
+    position: absolute;
+    z-index: -1;
+    top: -0.45em;
+    right: -0.55em;
+    bottom: -0.45em;
+    left: -0.55em;
+    background: var(--plaque-color, rgba(255, 255, 255, 0.58));
+    border-radius: 4px;
+    filter: blur(20px);
+    mix-blend-mode: screen;
+    pointer-events: none;
+}
+
+/* Цвета подложек по группам текста */
+.slide[data-slide="0"] .textbox { --plaque-color: rgba(255, 233, 175, 0.58); }  /* #FFE9AF */
+.slide[data-slide="2"] .textbox { --plaque-color: rgba(255, 229, 159, 0.58); }  /* #FFE59F */
+.slide[data-slide="3"] .textbox { --plaque-color: rgba(242, 212, 185, 0.58); }  /* #F2D4B9 */
+.slide[data-slide="4"] .textbox { --plaque-color: rgba(32, 39, 45, 0.79); --text-color: white;}
+/*.slide[data-slide="5"] .textbox { --plaque-color: rgba(36, 33, 28, 0.79); --text-color: #f1d6b2;}*/
+.slide[data-slide="5"] .slide-content { --plaque-color: rgb(23, 29, 28); --text-color: #cec9b7;}
 
 
+.text-layer,
+.text,
+.text-alternate,
+.text-third {
+    color: var(--text-color, #1a1a1a);
+}
+
+
+/*.slide[data-slide="start"] .book-container {*/
+/*    position: relative;*/
+/*    background: url('images/download.png') center/cover no-repeat;*/
+/*}*/
+
+/* ====================== СЛАЙД 4: ЛЕТЯЩАЯ БАБА-ЯГА ====================== */
+/* ====================== СЛАЙД 4: ЛЕТЯЩАЯ БАБА-ЯГА ====================== */
+.slide[data-slide="4"] .flying-stupa {
+    position: absolute;
+    left: 0;
+    top: 15%;
+    width: 15% !important;
+    height: auto !important;
+    z-index: 15;
+    pointer-events: none;
+    will-change: transform;
+    transform: translateX(-100%);  /* Начинаем за левым краем */
+    opacity: 0;
+
+}
+
+.slide[data-slide="4"].flying .flying-stupa {
+    animation: flyAcross 6s ease-in-out forwards;
+}
+
+@keyframes flyAcross {
+    0% {
+        transform: translateX(-100%);
+        opacity: 0;
+    }
+    10% {
+        opacity: 1;
+    }
+    90% {
+        opacity: 1;
+    }
+    100% {
+        transform: translateX(1500%);
+        opacity: 0;
+    }
+}
+/* ========== СЛАЙД 5: БЛЕСК ЗОЛОТА У КАЩЕЯ ========== */
+.slide[data-slide="5"] {
+    position: relative;
+}
+
+.slide[data-slide="5"] .gold-shimmer {
+    position: absolute;
+    top: 28%;
+    left: 7%;
+    width: 59%;
+    height: auto;
+    object-fit: cover;
+    pointer-events: none;
+    z-index: 10;
+    opacity: 0.2;
+    animation: sparkle 1.5s ease-in-out infinite alternate;
+    mix-blend-mode: screen;  /* или screen, или soft-light, или hard-light */
+}
+
+@keyframes sparkle {
+    0% {
+        opacity: 0.15;
+    }
+    100% {
+        opacity: 0.7;
+    }
+}

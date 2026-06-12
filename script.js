@@ -205,6 +205,33 @@ if (slide4) {
         }
     });
 }
+
+
+// ========== СЛАЙД 4 (data-slide="4"): ТЕКСТ + ПОЛЁТ БАБЫ-ЯГИ ==========
+const slide5 = document.querySelector('.slide[data-slide="4"]');
+
+if (slide5) {
+    let hasFlown = false;
+    const defaultText5 = slide5.querySelector('.text');
+    const altText5 = slide5.querySelector('.text-alternate');
+    const flyingStupa = slide5.querySelector('.flying-stupa');
+
+    // Начальное состояние
+    if (defaultText5) defaultText5.style.opacity = '1';
+    if (altText5) altText5.style.opacity = '0';
+
+    slide5.addEventListener('click', () => {
+        if (!hasFlown) {
+            // Меняем текст
+            if (defaultText5) defaultText5.style.opacity = '0';
+            if (altText5) altText5.style.opacity = '1';
+
+            // Запускаем анимацию
+            slide5.classList.add('flying');
+            hasFlown = true;
+        }
+    });
+}
 // ========== ПОСЛЕДНИЙ СЛАЙД — КНИГА ОТКРЫВАЕТСЯ ПО КЛИКУ ==========
 const lastSlide = document.querySelector('.slide[data-slide="11"]');
 const closingBook = document.getElementById('closing-book');
@@ -226,4 +253,6 @@ if (lastSlide && closingBook) {
         // При повторном клике ничего не происходит
     });
 }
+
+
 
