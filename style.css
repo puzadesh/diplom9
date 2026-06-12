@@ -701,3 +701,27 @@ html, body {
         opacity: 0.7;
     }
 }
+/* ====================== СЛАЙД 0: ЛЕШИЙ (независимо от экрана) ====================== */
+.slide[data-slide="0"] .leshy {
+    position: absolute;
+    left: 10%;                    /* % от ширины slide-content */
+    bottom: -40%;                /* начинаем чуть ниже */
+    width: 40%;                  /* размер относительно ширины слайда */
+    height: auto;
+    z-index: 12;
+    opacity: 0;
+    transform: scale(0.55);
+    filter: drop-shadow(0 20px 35px rgba(0,0,0,0.6));
+    will-change: transform, opacity;
+    pointer-events: none;
+    transition: opacity 0.7s ;
+
+}
+.slide[data-slide="0"].leshy-active .leshy {
+    opacity: 1;
+}
+
+.slide[data-slide="0"].leshy-moving .leshy {
+    transition: all 3.5s cubic-bezier(0.23, 0.1, 0.32, 1) 2s;
+    transform: translateY(-10%) translateX(15%) scale(0.4);   /* ← главное изменение */
+}

@@ -83,7 +83,7 @@ slidesContainer.addEventListener('wheel', (e) => {
 
     });
 
-// ========== УЛУЧШЕННАЯ ЗУМ + ПАНОРАМА (слайд 0) ==========
+// ========== УЛУЧШЕННАЯ ЗУМ + ПАНОРАМА (слайд 0) + ЛЕШИЙ ==========
 document.querySelectorAll('.zoom-scroll').forEach(img => {
     const slide = img.closest('.slide');
     if (slide.dataset.slide !== "0") return;
@@ -92,6 +92,8 @@ document.querySelectorAll('.zoom-scroll').forEach(img => {
     const text1 = slide.querySelector('.text1');
     const text2 = slide.querySelector('.text2');
     const text3 = slide.querySelector('.text3');
+    const leshy = slide.querySelector('.leshy');
+    let leshyShown = false;
 
     img.addEventListener('click', () => {
         let state = Number(img.dataset.state || 0);
@@ -115,16 +117,31 @@ document.querySelectorAll('.zoom-scroll').forEach(img => {
 
             if (text2) text2.style.opacity = '0';
 
-            // Панорама — делаем максимально плавно
+            // Панорама
             img.style.transition = 'object-position 1.1s cubic-bezier(0.25, 0.1, 0.25, 1)';
             img.style.objectPosition = img.dataset.shift || '0%';
 
             setTimeout(() => {
                 if (text3) text3.style.opacity = '1';
             }, 300);
+// === ЛЕШИЙ — сначала появляется, потом двигается ===
+            if (leshy && !leshyShown) {
+                leshyShown = true;
+
+                // Шаг 1: появление (через 1150ms после клика)
+                setTimeout(() => {
+                    slide.classList.add('leshy-active');
+
+                    // Шаг 2: через 400ms после появления — движение
+                    setTimeout(() => {
+                        slide.classList.add('leshy-moving');
+                    }, 60);
+                }, 1100);
+            }
         }
     });
 });
+
     const slide3 = document.querySelector('.slide[data-slide="2"]');
     const overlayImg = slide3.querySelector('.overlay-image');
     const defaultText = slide3.querySelector('.text[data-default]');
