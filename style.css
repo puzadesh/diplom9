@@ -233,7 +233,7 @@ html, body {
     height: 100%;
     perspective: 1200px;
     perspective-origin: 50% 40%;
-    background: #679771;
+    background: #8ba6aa;
 }
 
 .book {
@@ -400,7 +400,7 @@ html, body {
     margin-bottom: 20px;
     /*text-shadow: 0 2px 8px rgba(0,0,0,0.6);*/
     line-height: 1.1;
-    color: #1d120b;
+    color: #2b200f;
 }
 
 .book-author {
