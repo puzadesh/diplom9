@@ -89,7 +89,6 @@ document.querySelectorAll('.zoom-scroll').forEach(img => {
     if (slide.dataset.slide !== "0") return;
 
     const text0 = slide.querySelector('.text0');
-    const text1 = slide.querySelector('.text1');
     const text2 = slide.querySelector('.text2');
     const text3 = slide.querySelector('.text3');
     const leshy = slide.querySelector('.leshy');
@@ -102,15 +101,12 @@ document.querySelectorAll('.zoom-scroll').forEach(img => {
             img.style.transition = 'transform 0.8s cubic-bezier(0.4, 0, 0.2, 1)';
             img.style.transformOrigin = img.dataset.origin || 'left bottom';
             img.style.transform = `scale(${img.dataset.zoom || 1.2})`;
-            img.dataset.state = 1;
+            img.dataset.state = 2;
 
             if (text0) text0.style.opacity = '0';
-            if (text1) text1.style.opacity = '1';
-
-        } else if (state === 1) {             // Клик 2: текст 2
-            img.dataset.state = 2;
-            if (text1) text1.style.opacity = '0';
             if (text2) text2.style.opacity = '1';
+
+
 
         } else if (state === 2) {             // Клик 3: панорама + текст 3
             img.dataset.state = 3;
