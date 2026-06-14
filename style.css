@@ -70,6 +70,7 @@ html, body {
     background: #C07E63;
     position: relative;
     margin: 0 auto;              /* центрирование */
+    container-type: size;        /* шрифты в cqmin от размера slide-content */
 }
 
 .slide img:not(.overlay-image) {
@@ -183,7 +184,7 @@ html, body {
     top: 10%;
     left: 60%;
     font-family: 'Monomakh', serif;
-    font-size: 4.5vmin;
+    font-size: 4.5cqmin;
     white-space: pre-line;
     pointer-events: none;
     transition: opacity 0.85s ease-in-out;
@@ -206,7 +207,7 @@ html, body {
     left: 10%;
     font-family: 'Monomakh', serif;
     /*color: #000000;*/
-    font-size: 4.5vmin;
+    font-size: 4.5cqmin;
     white-space: pre-line;
     pointer-events: none;
     transition: opacity 0.5s ease-in-out;   /* плавно — 0.8 секунды */
@@ -275,24 +276,24 @@ html, body {
     }
 
     .page-content h2 {
-        font-size: 3.5vmin;
+        font-size: 3.5cqmin;
         margin-bottom: 15px;
     }
 
     .intro-text {
-        font-size: 2.8vmin;
+        font-size: 2.8cqmin;
     }
 
     .continue-hint {
-        font-size: 2.2vmin;
+        font-size: 2.2cqmin;
     }
 
     .book-title {
-        font-size: 4.5vmin;
+        font-size: 4.5cqmin;
     }
 
     .book-author {
-        font-size: 2.8vmin;
+        font-size: 2.8cqmin;
     }
 }
 
@@ -365,7 +366,7 @@ html, body {
 
 /* Текст на внутренней стороне */
 .cover-back p {
-    font-size: 3vmin;
+    font-size: 3cqmin;
     font-style: italic;
     font-family: 'Monomakh', Georgia, serif;
 }
@@ -388,27 +389,27 @@ html, body {
 }
 
 .page-content h2 {
-    font-size: 3.8vmin;
+    font-size: 3.8cqmin;
     margin-bottom: 25px;
     text-align: center;
     color: #3c2a1f;
 }
 
 .intro-text {
-    font-size: 3.1vmin;
+    font-size: 3.1cqmin;
     line-height: 1.45;
 }
 
 .continue-hint {
     margin-top: auto;
     text-align: center;
-    font-size: 2.4vmin;
+    font-size: 2.4cqmin;
     opacity: 0.7;
     font-style: italic;
 }
 
 .book-title {
-    font-size: 5.2vmin;
+    font-size: 5.2cqmin;
     margin-bottom: 20px;
     /*text-shadow: 0 2px 8px rgba(0,0,0,0.6);*/
     line-height: 1.1;
@@ -419,7 +420,7 @@ html, body {
 }
 
 .book-author {
-    font-size: 3.2vmin;
+    font-size: 3.2cqmin;
     opacity: 0.95;
     color: #392929;
     mix-blend-mode: multiply;  /* ← добавляем */
@@ -428,7 +429,7 @@ html, body {
 
 }
 .book-author-front {
-    font-size: 3.2vmin;
+    font-size: 3.2cqmin;
     color: #8d8d8d;
     mix-blend-mode: color-dodge;  /* ← добавляем */
     opacity: 100%;
@@ -800,7 +801,7 @@ html, body {
 
 /* Стихи на странице книги */
 .page-content .intro-text {
-    font-size: 2.3vmin;
+    font-size: 2.3cqmin;
     line-height: 1.6;
     margin: 0;
     letter-spacing: 0.02em;
@@ -810,7 +811,7 @@ html, body {
 
 /* Заголовок на внутренней стороне обложки */
 .cover-back h2 {
-    font-size: 4vmin;
+    font-size: 4cqmin;
     margin-top: 5%;
     margin-bottom: 15%;
     line-height: 1.4;
@@ -823,7 +824,7 @@ html, body {
 
 /* Автор на внутренней стороне обложки */
 .cover-back .book-author {
-    font-size: 2.2vmin;
+    font-size: 2.2cqmin;
     margin-top: 5%;
     opacity: 0.85;
     color: #5c2a0e;
@@ -858,17 +859,17 @@ html, body {
 
 .continue-button {
     background: transparent;
-    border: 0.2vmin solid #b4833f;
-    border-radius: 1vmin;
-    padding: 1.8vmin 5vmin;
+    border: 0.2cqmin solid #b4833f;
+    border-radius: 1cqmin;
+    padding: 1.8cqmin 5cqmin;
     font-family: 'Monomakh', serif;
-    font-size: 3.2vmin;
+    font-size: 3.2cqmin;
     color: #b58147;
     cursor: pointer;
     transition: all 0.4s ease;
     letter-spacing: 0.1em;
     backdrop-filter: blur(8px);
-    box-shadow: 0 0 2vmin rgba(212, 175, 55, 0.2);
+    box-shadow: 0 0 2cqmin rgba(212, 175, 55, 0.2);
 }
 
 .continue-button:hover {
@@ -876,7 +877,7 @@ html, body {
     border-color: #f0d870;
     color: #f0d870;
     transform: scale(1.02);
-    box-shadow: 0 0 3vmin rgba(212, 175, 55, 0.4);
+    box-shadow: 0 0 3cqmin rgba(212, 175, 55, 0.4);
 }
 
 .continue-button:active {
