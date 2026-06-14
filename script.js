@@ -156,23 +156,39 @@ document.querySelectorAll('.zoom-scroll').forEach(img => {
             altText.style.opacity = '0';
         }
     });
+// === АНИМАЦИЯ ОТКРЫТИЯ КНИГИ НА ПЕРВОМ СЛАЙДЕ ===
+const startSlide = document.querySelector('.slide[data-slide="start"]');
+const book = document.getElementById('opening-book');
 
-    // === АНИМАЦИЯ ОТКРЫТИЯ КНИГИ НА ПЕРВОМ СЛАЙДЕ ===
-    const startSlide = document.querySelector('.slide[data-slide="start"]');
-    const book = document.getElementById('opening-book');
+let bookAnimationDone = false;
 
-    if (startSlide && book) {
-        // Запускаем анимацию через небольшую задержку после загрузки
-        setTimeout(() => {
-            book.classList.add('open');
-        }, 800);
+if (startSlide && book) {
+    const openBook = () => {
+        if (bookAnimationDone) return;
+        bookAnimationDone = true;
+        book.classList.add('open');
+    };
 
-        // Опционально: если пользователь кликнет по книге — ускорить анимацию
-        book.addEventListener('click', () => {
-            book.style.transitionDuration = '1.1s';
-            book.classList.add('open');
+    // Запускаем анимацию
+    setTimeout(openBook, 600);   // чуть раньше
+
+    // Если пользователь уже начал скроллить — открываем мгновенно
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (!entry.isIntersecting && !bookAnimationDone) {
+                openBook(); // принудительно завершаем анимацию
+            }
         });
-    }
+    }, { threshold: 0.8 });
+
+    observer.observe(startSlide);
+
+    // Клик по книге
+    book.addEventListener('click', () => {
+        book.style.transitionDuration = '0.9s';
+        openBook();
+    });
+}
 
 // ========== СЛАЙД 3 (data-slide="3"): ТЕКСТ + РАЗМЫТИЕ + НАЛОЖЕНИЯ ==========
 const slide4 = document.querySelector('.slide[data-slide="3"]');
@@ -245,26 +261,48 @@ if (slide5) {
         }
     });
 }
-// ========== ПОСЛЕДНИЙ СЛАЙД — КНИГА ОТКРЫВАЕТСЯ ПО КЛИКУ ==========
+// ========== ПОСЛЕДНИЙ СЛАЙД — КНИГА ОТКРЫВАЕТСЯ ПО КЛИКУ, ПОТОМ КНОПКА ==========
 const lastSlide = document.querySelector('.slide[data-slide="11"]');
 const closingBook = document.getElementById('closing-book');
+const closingText = document.getElementById('closing-text');
+const continueButton = document.getElementById('continue-button');
 
-if (lastSlide && closingBook) {
+if (lastSlide && closingBook && closingText) {
     // Изначально книга ЗАКРЫТА (откинута)
     closingBook.classList.add('closed');
     closingBook.classList.remove('open');
+    closingText.classList.remove('show');
 
     let isOpen = false;
+    let buttonShown = false;
 
     lastSlide.addEventListener('click', () => {
         if (!isOpen) {
-            // Открываем книгу (обложка встаёт на место)
+            // Открываем книгу
             closingBook.classList.remove('closed');
             closingBook.classList.add('open');
             isOpen = true;
         }
-        // При повторном клике ничего не происходит
+
+        // Через 1.5 секунды показываем кнопку
+        setTimeout(() => {
+            if (closingText && !buttonShown) {
+                closingText.classList.add('show');
+                buttonShown = true;
+            }
+        }, 1500);
     });
+
+    // Обработчик клика по кнопке
+    if (continueButton) {
+        continueButton.addEventListener('click', (e) => {
+            e.stopPropagation();  // чтобы клик не сработал на слайд
+            // Здесь ссылка на продолжение
+            // window.location.href = 'https://www.culture.ru/poems/5061/ruslan-i-lyudmila-poema';  // замените на нужную ссылку
+            // Или можно открыть в новой вкладке:
+            window.open('https://www.culture.ru/poems/5061/ruslan-i-lyudmila-poema', '_blank');
+        });
+    }
 }
 
 

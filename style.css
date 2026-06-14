@@ -27,10 +27,10 @@ html, body {
 .slide[data-slide="1"] { background: #1a3a2a; }  /* тёмно-зелёный */
 .slide[data-slide="2"] { background: linear-gradient(to bottom, #9b92b0, #c3a4ac, #e28e2e); } /* для книги */
 .slide[data-slide="3"] { background: linear-gradient(to bottom, #98747b, #7a576e, #78556c); }  /* тёмно-бордовый */
-.slide[data-slide="4"] { background: linear-gradient(to bottom, #da7d5e, #796b83, #0f1312, #131c23); }  /* тёмно-бордовый */
+.slide[data-slide="4"] { background: linear-gradient(to bottom, #da7d5e, #796b83, #0f1312, #141412); }  /* тёмно-бордовый */
 .slide[data-slide="5"] { background: radial-gradient(ellipse at center, #3e3c34 0%, #171a17 90%); }  /* тёмно-синий */
-.slide[data-slide="start"] {background: linear-gradient(to bottom, #8ba6aa, #577896); } /* для книги */
-.slide[data-slide="11"] { background: #2a1a0a; }  /* для финальной книги */
+.slide[data-slide="start"] {background: linear-gradient(to bottom, #829e9f, #52728b); } /* для книги */
+.slide[data-slide="11"] { background: #171a17; }  /* для финальной книги */
 
 
 /* Контейнер слайдов - вертикальный скролл */
@@ -39,7 +39,7 @@ html, body {
     flex-direction: column;
     align-items: center;
     width: 100%;
-    height: 100vh;
+    height: 100dvh;
     overflow-y: auto;
     scroll-snap-type: y mandatory;
     -webkit-overflow-scrolling: touch; /* важно для iOS */
@@ -54,7 +54,7 @@ html, body {
     justify-content: center;
     align-items: center;
     /*background: #ff3a3a;*/
-    height: 100vh;
+    height: 100dvh;
     scroll-snap-align: start;
     scroll-snap-stop: always;
     will-change: transform;
@@ -119,7 +119,6 @@ html, body {
 
 .scrollable {
     transition: object-position 0.6s ease;
-    cursor: pointer;
 }
 
 .overlay-image {
@@ -128,7 +127,7 @@ html, body {
     right: 10%;
     bottom: 7%;
     transform: translate3d(0, 100%, 0);
-    transition: transform 0.6s ease;
+    transition: transform 1s ease;
     will-change: transform;
     pointer-events: none;
     width: 40%;   /* уменьшаешь как нужно */
@@ -137,8 +136,8 @@ html, body {
 /* Изображение в правом нижнем углу на слайде 2 */
 .slide[data-slide="2"] .overlay-image-3 {
     position: absolute;
-    right: 0%;
-    bottom: 0%;
+    right: 0;
+    bottom: 0;
     width: 60%;           /* размер относительно контейнера */
     height: auto;
     z-index: 15;
@@ -243,19 +242,22 @@ html, body {
     height: 100%;
     perspective: 1200px;
     perspective-origin: 50% 40%;
-    background: linear-gradient(#8ba6aa, #577896);
+    /*background: linear-gradient(#8ba6aa, #577896);*/
+    background: url("images/test5.png") center center no-repeat;
 }
+
 
 .book {
      position: relative;
      width: min(50%);
      height: auto;
      aspect-ratio: 620 / 380; /* Сохраняем пропорции 620:380 */
-     /*max-width: 90vh;*/
-     max-height: 80vh;
+     max-width: 75%;
+     max-height: 90%;
      transform-style: preserve-3d;
  }
  /*Адаптация для телефонов */
+
 @media (max-width: 768px) {
     .book {
         width: min(95%, 500px);
@@ -303,7 +305,7 @@ html, body {
     right: 0;
     background: url('images/test3.png') center/cover no-repeat;
     box-shadow: -8px 0 20px rgba(0,0,0,0.25);
-    padding: 35px 30px;
+    padding: 5% 2%;
     font-family: 'Monomakh', Georgia, serif;
     color: #2c1f14;
     transition: transform 2.2s cubic-bezier(0.65, 0.05, 0.35, 1);
@@ -330,10 +332,10 @@ html, body {
     position: absolute;
     width: 100%;
     height: 100%;
-    background: url('images/test.webp') center/cover no-repeat;
+    background: url('images/test1-2.png') center/cover no-repeat;
     border-radius: 0 4px 4px 0;
     backface-visibility: hidden;
-    box-shadow: inset 0 0 30px rgba(0,0,0,0.15);
+    box-shadow: inset 0 0 5em rgb(54, 34, 21);
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -342,7 +344,7 @@ html, body {
     padding: 40px 20px;
 }
 
-/* Внутренняя сторона обложки (видна, когда книга открыта) */
+/* Внутренняя сторона обложки (видна, когда книга открыта) 1 */
 .cover-back {
     position: absolute;
     width: 100%;
@@ -410,20 +412,32 @@ html, body {
     margin-bottom: 20px;
     /*text-shadow: 0 2px 8px rgba(0,0,0,0.6);*/
     line-height: 1.1;
-    color: #2b200f;
+    color: rgb(132, 128, 128);
+    mix-blend-mode: color-dodge;  /* ← добавляем */
+    opacity: 100%;
+
 }
 
 .book-author {
     font-size: 3.2vmin;
     opacity: 0.95;
-    color: #1d120b;
+    color: #392929;
+    mix-blend-mode: multiply;  /* ← добавляем */
+
+
+
+}
+.book-author-front {
+    font-size: 3.2vmin;
+    color: #8d8d8d;
+    mix-blend-mode: color-dodge;  /* ← добавляем */
+    opacity: 100%;
 
 }
 
 /* ========== СЛАЙД 4: ОБМЕН РАЗМЫТИЕМ ========== */
 .slide[data-slide="3"] .slide-content {
     position: relative;
-    cursor: pointer;
 }
 /* ========== СЛАЙД 3: ВТОРОЕ НАЛОЖЕНИЕ (появляется после текста) ========== */
 .slide[data-slide="3"] .overlay-image-2 {
@@ -501,8 +515,9 @@ html, body {
 /* ====================== ЗАКРЫВАЮЩАЯСЯ КНИГА (последний слайд) ====================== */
 .last-slide-content {
     position: relative;
-    height: 100vh;
-    background: #2a1a0a;
+    height: 100dvh;
+    background: url('images/image 397.png') center/cover no-repeat;
+    /*background: linear-gradient(to bottom, #171a17, #caaf7e, #caaf7e);*/
     overflow: hidden;
     display: flex;
     justify-content: center;
@@ -515,8 +530,8 @@ html, body {
     width: min(90%, 620px);
     height: auto;
     aspect-ratio: 620 / 380; /* Сохраняем пропорции 620:380 */
-    /*max-width: 90vh;*/
-    max-height: 80vh;
+    max-width: 75%;
+    max-height: 90%;
     transform-style: preserve-3d;
 }
 
@@ -546,10 +561,13 @@ html, body {
     height: 100%;
     top: 0;
     right: 0;
-    background: #f8f1e3;
-    box-shadow: -8px 0 20px rgba(0,0,0,0.3);
-    padding: 35px 30px;
+    background: url('images/test3.png') center/cover no-repeat;
+    box-shadow: -8px 0 20px rgba(0,0,0,0.25);
+    font-family: 'Monomakh', Georgia, serif;
+    color: #2c1f14;
+    transition: transform 2.2s cubic-bezier(0.65, 0.05, 0.35, 1);
     border-radius: 0 4px 4px 0;
+    backface-visibility: hidden;
     transform-origin: left center;
 }
 
@@ -564,33 +582,37 @@ html, body {
     transition: transform 1.4s cubic-bezier(0.65, 0.05, 0.35, 1);
 }
 
-.book-final .cover-front {
+/*.book-final .cover-front {*/
+/*    position: absolute;*/
+/*    width: 100%;*/
+/*    height: 100%;*/
+/*    background: linear-gradient(135deg, #5c2a0e, #8b4513);*/
+/*    color: #f4e9d8;*/
+/*    border-radius: 0 4px 4px 0;*/
+/*    display: flex;*/
+/*    flex-direction: column;*/
+/*    justify-content: center;*/
+/*    align-items: center;*/
+/*    text-align: center;*/
+/*    padding: 40px 20px;*/
+/*}*/
+
+.book-final .cover-back {
     position: absolute;
     width: 100%;
     height: 100%;
-    background: linear-gradient(135deg, #5c2a0e, #8b4513);
-    color: #f4e9d8;
-    border-radius: 0 4px 4px 0;
+    background: url('images/test3.png') center/cover no-repeat;
+    border-radius: 4px 0 0 4px;
+    backface-visibility: hidden;
+    transform: rotateY(180deg);
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     text-align: center;
     padding: 40px 20px;
-}
-
-.book-final .cover-back {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    background: #e8dcc8;
-    border-radius: 4px 0 0 4px;
-    transform: rotateY(180deg);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 20px;
-    overflow: hidden;
+    color: #5c2a0e;
+    box-shadow: inset 0 0 20px rgba(0,0,0,0.1);
 }
 
 .book-final .final-image {
@@ -734,9 +756,9 @@ html, body {
 /* ====================== СЛАЙД 0: ЛЕШИЙ (независимо от экрана) ====================== */
 .slide[data-slide="0"] .leshy {
     position: absolute;
-    left: 10%;                    /* % от ширины slide-content */
-    bottom: -40%;                /* начинаем чуть ниже */
-    width: 40%;                  /* размер относительно ширины слайда */
+    left: -3%;                    /* % от ширины slide-content */
+    bottom: -60%;                /* начинаем чуть ниже */
+    width: 60%;                  /* размер относительно ширины слайда */
     height: auto;
     z-index: 12;
     opacity: 0;
@@ -752,7 +774,7 @@ html, body {
 
 .slide[data-slide="0"].leshy-moving .leshy {
     transition: all 3.5s cubic-bezier(0.23, 0.1, 0.32, 1) 2s;
-    transform: translateY(-10%) translateX(15%) scale(0.4);   /* ← главное изменение */
+    transform: translateY(-8%) translateX(10%) scale(0.4);   /* ← главное изменение */
 }
 /* ====================== УЛУЧШЕННОЕ ОФОРМЛЕНИЕ КНИГИ ====================== */
 
@@ -784,24 +806,7 @@ html, body {
     letter-spacing: 0.02em;
 }
 
-/* Оборотная сторона обложки (внутренняя) */
-.cover-back {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    background: url('images/test3.png') center/cover no-repeat;
-    border-radius: 4px 0 0 4px;
-    backface-visibility: hidden;
-    transform: rotateY(180deg);
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-    padding: 8% 6%;
-    color: #5c2a0e;
-    box-shadow: inset 0 0 2vmin rgba(0,0,0,0.1);
-}
+
 
 /* Заголовок на внутренней стороне обложки */
 .cover-back h2 {
@@ -830,4 +835,50 @@ html, body {
     display: block;
     font-size: 0.85em;
     margin-top: 1.5%;
+}
+
+/* Кнопка на последнем слайде */
+.closing-text {
+    position: absolute;
+    bottom: 22%;
+    left: 25%;
+    right: 0;
+    /*text-align: center;*/
+    opacity: 0;
+    transition: opacity 0.6s ease;
+    pointer-events: none;
+    z-index: 5;
+}
+
+
+.closing-text.show {
+    opacity: 1;
+    pointer-events: auto;  /* ← кнопка становится кликабельной */
+}
+
+.continue-button {
+    background: transparent;
+    border: 0.2vmin solid #b4833f;
+    border-radius: 1vmin;
+    padding: 1.8vmin 5vmin;
+    font-family: 'Monomakh', serif;
+    font-size: 3.2vmin;
+    color: #b58147;
+    cursor: pointer;
+    transition: all 0.4s ease;
+    letter-spacing: 0.1em;
+    backdrop-filter: blur(8px);
+    box-shadow: 0 0 2vmin rgba(212, 175, 55, 0.2);
+}
+
+.continue-button:hover {
+    background: rgba(212, 175, 55, 0.15);
+    border-color: #f0d870;
+    color: #f0d870;
+    transform: scale(1.02);
+    box-shadow: 0 0 3vmin rgba(212, 175, 55, 0.4);
+}
+
+.continue-button:active {
+    transform: scale(0.98);
 }
