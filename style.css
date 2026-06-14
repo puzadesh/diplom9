@@ -244,7 +244,7 @@ html, body {
     perspective: 1200px;
     perspective-origin: 50% 40%;
     /*background: linear-gradient(#8ba6aa, #577896);*/
-    background: url("images/test5.png") center center no-repeat;
+    background: url("images/test5.webp") center center no-repeat;
 }
 
 
@@ -552,7 +552,7 @@ html, body {
 }
 
 .book-final.closed .book-page {
-    transform: rotateY(-5deg);
+    transform: rotateY(-10deg);
 }
 
 /* Стили страниц (такие же как на первом слайде) */
