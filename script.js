@@ -62,26 +62,36 @@ slidesContainer.addEventListener('wheel', (e) => {
         });
 
     });
-    document.querySelectorAll('.scrollable').forEach(img => {
+document.querySelectorAll('.scrollable').forEach(img => {
+    // Проверяем, на каком слайде эта картинка
+    const parentSlide = img.closest('.slide');
+    const isSlide1 = parentSlide && parentSlide.getAttribute('data-slide') === '1';
 
-        img.addEventListener('click', () => {
+    let alreadyClicked = false;  // флаг для слайда 1
 
-            let state = Number(img.dataset.state || 0);
-            const start = img.dataset.start || 'center';
-            const end = img.dataset.end || 'center';
+    img.addEventListener('click', () => {
+        // Если это слайд 1 и уже кликали — ничего не делаем
+        if (isSlide1 && alreadyClicked) return;
 
-            if (state === 0) {
-                img.style.objectPosition = end;
-                img.dataset.state = 1;
-            }
-            else {
+        let state = Number(img.dataset.state || 0);
+        const start = img.dataset.start || 'center';
+        const end = img.dataset.end || 'center';
+
+        if (state === 0) {
+            img.style.objectPosition = end;
+            img.dataset.state = 1;
+
+            if (isSlide1) alreadyClicked = true;  // запоминаем для слайда 1
+        }
+        else {
+            // Для слайда 1 — не даём вернуться назад
+            if (!isSlide1) {
                 img.style.objectPosition = start;
                 img.dataset.state = 0;
             }
-
-        });
-
+        }
     });
+});
 
 // ========== УЛУЧШЕННАЯ ЗУМ + ПАНОРАМА (слайд 0) + ЛЕШИЙ ==========
 document.querySelectorAll('.zoom-scroll').forEach(img => {
@@ -143,19 +153,18 @@ document.querySelectorAll('.zoom-scroll').forEach(img => {
     const defaultText = slide3.querySelector('.text[data-default]');
     const altText = slide3.querySelector('.text-alternate');
 
-    slide3.addEventListener('click', () => {
-        const isActive = !slide3.classList.contains('clicked');
-        slide3.classList.toggle('clicked');
-        overlayImg.classList.toggle('show', isActive);
+let slide3Clicked = false;  // флаг, что клик уже был
 
-        if (isActive) {
-            defaultText.style.opacity = '0';
-            altText.style.opacity = '1';
-        } else {
-            defaultText.style.opacity = '1';
-            altText.style.opacity = '0';
-        }
-    });
+slide3.addEventListener('click', () => {
+    if (slide3Clicked) return;  // если уже кликали — ничего не делаем
+
+    slide3Clicked = true;
+    slide3.classList.add('clicked');   // только add, не toggle
+    overlayImg.classList.add('show');   // только add
+
+    defaultText.style.opacity = '0';
+    altText.style.opacity = '1';
+});
 // === АНИМАЦИЯ ОТКРЫТИЯ КНИГИ НА ПЕРВОМ СЛАЙДЕ ===
 const startSlide = document.querySelector('.slide[data-slide="start"]');
 const book = document.getElementById('opening-book');
