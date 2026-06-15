@@ -256,6 +256,7 @@ html, body {
      max-width: 75%;
      max-height: 90%;
      transform-style: preserve-3d;
+     container-type: size;      /* текст и картинки внутри — от размера книги */
  }
  /*Адаптация для телефонов */
 
@@ -293,7 +294,7 @@ html, body {
     }
 
     .book-title {
-        font-size: 4.5cqmin;
+        font-size: 6cqmin;
     }
 
     .book-author {
@@ -407,7 +408,7 @@ html, body {
 }
 
 .book-title {
-    font-size: 5.2cqmin;
+    font-size: 9cqmin;
     margin-bottom: 7%;
     /*text-shadow: 0 2px 8px rgba(0,0,0,0.6);*/
     line-height: 1.1;
@@ -427,10 +428,11 @@ html, body {
 
 }
 .book-author-front {
-    font-size: 3.2cqmin;
+    font-size: 4cqmin;
     color: #c0a993;
     mix-blend-mode: hard-light;  /* ← добавляем */
     opacity: 100%;
+    margin-top: 5cqmin;
 
 }
 
@@ -790,7 +792,7 @@ html, body {
 .book-page .page-image {
     width: 80%;
     height: auto;
-    max-height: 55%;
+    max-height: 55cqh;
     object-fit: cover;
     margin-bottom: 10%;
 }
@@ -798,23 +800,23 @@ html, body {
 /* Только для первого слайда с книгой */
 .slide[data-slide="start"] .book-page .page-image {
     width: 90%;
-    max-height: 60%;
+    max-height: 60cqh;
     object-fit: cover;
-    margin: 5% auto 15% auto;
+    margin: 5% auto 10% auto;
 }
 
 /* Стихи на странице книги */
 .page-content .intro-text {
-    font-size: 2.3cqmin;
+    font-size: 4cqmin;
     line-height: 1.6;
-    margin: 0;
+    margin-bottom: 2%;
     letter-spacing: 0.02em;
     color: #3d2717;
 
 
 }
 .page-content .outro-text {
-    font-size: 2.3cqmin;
+    font-size: 4cqmin;
     line-height: 1.8;
     margin: 0;
     letter-spacing: 0.02em;
@@ -823,9 +825,9 @@ html, body {
 
 /* Заголовок на внутренней стороне обложки */
 .cover-back h2 {
-    font-size: 4cqmin;
-    margin-top: 5%;
-    margin-bottom: 15%;
+    font-size: 6cqmin;
+    margin-top: 30%;
+    margin-bottom: 30%;
     line-height: 1.4;
     color: #4f3421;
     font-weight: normal;
@@ -836,8 +838,8 @@ html, body {
 
 /* Автор на внутренней стороне обложки */
 .cover-back .book-author {
-    font-size: 2.2cqmin;
-    margin-top: 5%;
+    font-size: 4cqmin;
+    margin-bottom: 5%;
     opacity: 0.85;
     color: #3d1d0e;
     line-height: 1.5;
@@ -931,7 +933,7 @@ html, body {
 .book-final .cover-back .page-image {
     width: 100%;
     height: auto;
-    max-height: 100%;
+    max-height: 90cqh;
     object-fit: contain;
     margin: 0 auto;
 }
