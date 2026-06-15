@@ -535,6 +535,11 @@ html, body {
     max-width: 75%;
     max-height: 90%;
     transform-style: preserve-3d;
+    transition: transform 0.8s ease;
+}
+
+.book-final.shift-left {
+    transform: translateX(-23%);
 }
 
 /* Книга изначально открыта */
@@ -855,14 +860,13 @@ html, body {
 /* Кнопка на последнем слайде */
 .closing-text {
     position: absolute;
-    bottom: 22%;
-    left: 25%;
-    right: 0;
-    /*text-align: center;*/
+    top: calc(100% + 5cqmin);
+    left: 75%;
+    transform: translateX(-50%);
     opacity: 0;
     transition: opacity 0.6s ease;
     pointer-events: none;
-    z-index: 5;
+    z-index: 20;
 }
 
 
@@ -873,23 +877,23 @@ html, body {
 
 .continue-button {
     background: transparent;
-    border: 0.2cqmin solid #b4833f;
+    border: 0.3cqmin solid #c6996b;
     border-radius: 1cqmin;
     padding: 1.8cqmin 5cqmin;
     font-family: 'Monomakh', serif;
-    font-size: 3.2cqmin;
-    color: #b58147;
+    font-size: 5cqmin;
+    color: #e7b372;
     cursor: pointer;
     transition: all 0.4s ease;
     letter-spacing: 0.1em;
     backdrop-filter: blur(8px);
     box-shadow: 0 0 2cqmin rgba(212, 175, 55, 0.2);
-}
+    line-height: 5cqmin;}
 
 .continue-button:hover {
     background: rgba(212, 175, 55, 0.15);
-    border-color: #f0d870;
-    color: #f0d870;
+    border-color: #f0ca70;
+    color: #f0ce70;
     transform: scale(1.02);
     box-shadow: 0 0 3cqmin rgba(212, 175, 55, 0.4);
 }

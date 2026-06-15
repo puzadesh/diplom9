@@ -293,6 +293,16 @@ if (lastSlide && closingBook && closingText) {
             closingBook.classList.remove('closed');
             closingBook.classList.add('open');
             isOpen = true;
+
+            const bookCover = closingBook.querySelector('.book-cover');
+            if (bookCover) {
+                const shiftBookLeft = (e) => {
+                    if (e.target !== bookCover || e.propertyName !== 'transform') return;
+                    closingBook.classList.add('shift-left');
+                    bookCover.removeEventListener('transitionend', shiftBookLeft);
+                };
+                bookCover.addEventListener('transitionend', shiftBookLeft);
+            }
         }
 
         // Через 1.5 секунды показываем кнопку
