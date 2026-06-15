@@ -310,7 +310,7 @@ html, body {
     height: 100%;
     top: 0;
     right: 0;
-    background: url('images/test7.png') center/cover no-repeat;
+    background: url('images/test7.webp') center/cover no-repeat;
     box-shadow: -8px 0 20px rgba(0,0,0,0.25);
     padding: 5% 2%;
     font-family: 'Monomakh', Georgia, serif;
@@ -339,7 +339,7 @@ html, body {
     position: absolute;
     width: 100%;
     height: 100%;
-    background: url('images/test1-3.png') center/cover no-repeat;
+    background: url('images/test1-3.webp') center/cover no-repeat;
     border-radius: 0 4px 4px 0;
     backface-visibility: hidden;
     box-shadow: inset 0 0 5em rgb(54, 34, 21);
@@ -356,7 +356,7 @@ html, body {
     position: absolute;
     width: 100%;
     height: 100%;
-    background: url('images/test7.png') center/cover no-repeat;
+    background: url('images/test7.webp') center/cover no-repeat;
     border-radius: 4px 0 0 4px;
     backface-visibility: hidden;
     transform: rotateY(180deg);
@@ -519,7 +519,7 @@ html, body {
 .last-slide-content {
     position: relative;
     height: 100dvh;
-    background: url('images/test8.png') center/cover no-repeat;
+    background: url('images/test8.webp') center/cover no-repeat;
     /*background: linear-gradient(to bottom, #171a17, #caaf7e, #caaf7e);*/
     overflow: hidden;
     display: flex;
@@ -569,7 +569,7 @@ html, body {
     height: 100%;
     top: 0;
     right: 0;
-    background: url('images/test7.png') center/cover no-repeat;
+    background: url('images/test7.webp') center/cover no-repeat;
     box-shadow: -8px 0 20px rgba(0,0,0,0.25);
     font-family: 'Monomakh', Georgia, serif;
     color: #2c1f14;
@@ -609,7 +609,7 @@ html, body {
 /*    position: absolute;*/
 /*    width: 100%;*/
 /*    height: 100%;*/
-/*    background: url('images/test7.png') center/cover no-repeat;*/
+/*    background: url('images/test7.web') center/cover no-repeat;*/
 /*    border-radius: 4px 0 0 4px;*/
 /*    backface-visibility: hidden;*/
 /*    transform: rotateY(180deg);*/
