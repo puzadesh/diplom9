@@ -265,7 +265,9 @@ if (slide5) {
             if (altText5) altText5.style.opacity = '1';
 
             // Запускаем анимацию
-            slide5.classList.add('flying');
+            setTimeout(() => {
+                slide5.classList.add('flying');
+            }, 800);
             hasFlown = true;
         }
     });

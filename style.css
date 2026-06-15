@@ -283,6 +283,10 @@ html, body {
     .intro-text {
         font-size: 2.8cqmin;
     }
+    .outro-text{
+        font-size: 2.8cqmin;
+
+    }
 
     .continue-hint {
         font-size: 2.2cqmin;
@@ -304,7 +308,7 @@ html, body {
     height: 100%;
     top: 0;
     right: 0;
-    background: url('images/test3.webp') center/cover no-repeat;
+    background: url('images/test7.png') center/cover no-repeat;
     box-shadow: -8px 0 20px rgba(0,0,0,0.25);
     padding: 5% 2%;
     font-family: 'Monomakh', Georgia, serif;
@@ -333,7 +337,7 @@ html, body {
     position: absolute;
     width: 100%;
     height: 100%;
-    background: url('images/test1-2.webp') center/cover no-repeat;
+    background: url('images/test1-3.png') center/cover no-repeat;
     border-radius: 0 4px 4px 0;
     backface-visibility: hidden;
     box-shadow: inset 0 0 5em rgb(54, 34, 21);
@@ -342,7 +346,7 @@ html, body {
     justify-content: center;
     align-items: center;
     text-align: center;
-    padding: 40px 20px;
+    padding: 10% 10% 10% 15%;
 }
 
 /* Внутренняя сторона обложки (видна, когда книга открыта) 1 */
@@ -350,7 +354,7 @@ html, body {
     position: absolute;
     width: 100%;
     height: 100%;
-    background: url('images/test3.webp') center/cover no-repeat;
+    background: url('images/test7.png') center/cover no-repeat;
     border-radius: 4px 0 0 4px;
     backface-visibility: hidden;
     transform: rotateY(180deg);
@@ -380,13 +384,7 @@ html, body {
     transform: rotateY(-15deg);
 }
 
-/* Содержимое страницы */
-.page-content {
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-}
+
 
 .page-content h2 {
     font-size: 3.8cqmin;
@@ -395,10 +393,10 @@ html, body {
     color: #3c2a1f;
 }
 
-.intro-text {
-    font-size: 3.1cqmin;
-    line-height: 1.45;
-}
+/*.intro-text {*/
+/*    font-size: 3.1cqmin;*/
+/*    line-height: 1.45;*/
+/*}*/
 
 .continue-hint {
     margin-top: auto;
@@ -410,11 +408,11 @@ html, body {
 
 .book-title {
     font-size: 5.2cqmin;
-    margin-bottom: 20px;
+    margin-bottom: 7%;
     /*text-shadow: 0 2px 8px rgba(0,0,0,0.6);*/
     line-height: 1.1;
-    color: rgb(132, 128, 128);
-    mix-blend-mode: color-dodge;  /* ← добавляем */
+    color: rgba(201, 180, 155, 0.95);
+    mix-blend-mode: hard-light;  /* ← добавляем */
     opacity: 100%;
 
 }
@@ -430,8 +428,8 @@ html, body {
 }
 .book-author-front {
     font-size: 3.2cqmin;
-    color: #8d8d8d;
-    mix-blend-mode: color-dodge;  /* ← добавляем */
+    color: #c0a993;
+    mix-blend-mode: hard-light;  /* ← добавляем */
     opacity: 100%;
 
 }
@@ -481,16 +479,17 @@ html, body {
             filter 0.6s ease-in-out,
             opacity 0.6s ease-in-out;
 
-    filter: blur(0);
+    filter: blur(0) brightness(1);
 }
 
-/* ПОСЛЕ КЛИКА: меняем размытие */
+/* ПОСЛЕ КЛИКА: размытие + лёгкое затемнение и прозрачность */
 .slide[data-slide="3"].clicked .slide-content img:first-child {
     filter: blur(0);             /* Становится чётким */
 }
 
 .slide[data-slide="3"].clicked .overlay-blur {
-    filter: blur(8px);           /* Становится размытым */
+    filter: blur(8px) brightness(0.82);
+    opacity: 0.78;
 }
 
 /* Аппаратное ускорение */
@@ -517,7 +516,7 @@ html, body {
 .last-slide-content {
     position: relative;
     height: 100dvh;
-    background: url('images/test5.webp') center/cover no-repeat;
+    background: url('images/test8.png') center/cover no-repeat;
     /*background: linear-gradient(to bottom, #171a17, #caaf7e, #caaf7e);*/
     overflow: hidden;
     display: flex;
@@ -562,7 +561,7 @@ html, body {
     height: 100%;
     top: 0;
     right: 0;
-    background: url('images/test3.webp') center/cover no-repeat;
+    background: url('images/test7.png') center/cover no-repeat;
     box-shadow: -8px 0 20px rgba(0,0,0,0.25);
     font-family: 'Monomakh', Georgia, serif;
     color: #2c1f14;
@@ -602,7 +601,7 @@ html, body {
     position: absolute;
     width: 100%;
     height: 100%;
-    background: url('images/test3.webp') center/cover no-repeat;
+    background: url('images/test7.png') center/cover no-repeat;
     border-radius: 4px 0 0 4px;
     backface-visibility: hidden;
     transform: rotateY(180deg);
@@ -651,15 +650,15 @@ html, body {
 }
 
 /* Цвета подложек по группам текста */
-.slide[data-slide="0"] .textbox { --plaque-color: rgba(231, 207, 161, 0.53); --text-color: #2b321c
+.slide[data-slide="0"] .textbox { --plaque-color: rgba(220, 198, 155, 0.85); --text-color: #2b321c
 }  /* #FFE9AF */
 .slide[data-slide="2"] .textbox { --plaque-color: rgba(255, 229, 159, 0.58); --text-color: #3c274f
 }  /* #FFE59F */
-.slide[data-slide="3"] .textbox { --plaque-color: rgba(240, 177, 113, 0.83); --text-color: #4d1919
+.slide[data-slide="3"] .textbox { --plaque-color: rgba(61, 34, 41, 0.68); --text-color: #f5d7b8
 }
 .slide[data-slide="3"] .text-third {
-    --third-text-color: #3c1610;      /* золотой цвет букв */
-    --third-plaque-color: rgba(243, 153, 46, 0.67);  /* тёмная подложка */
+    --third-text-color: #781c09;      /* золотой цвет букв */
+    --third-plaque-color: rgba(230, 155, 71, 0.84);  /* тёмная подложка */
 }
 .slide[data-slide="4"] .textbox { --plaque-color: rgba(27, 33, 33, 0.57); --text-color: #e5c2a6;}
 /*.slide[data-slide="5"] .textbox { --plaque-color: rgba(36, 33, 28, 0.79); --text-color: #f1d6b2;}*/
@@ -796,14 +795,30 @@ html, body {
     margin-bottom: 10%;
 }
 
+/* Только для первого слайда с книгой */
+.slide[data-slide="start"] .book-page .page-image {
+    width: 90%;
+    max-height: 60%;
+    object-fit: cover;
+    margin: 5% auto 15% auto;
+}
+
 /* Стихи на странице книги */
 .page-content .intro-text {
     font-size: 2.3cqmin;
     line-height: 1.6;
     margin: 0;
     letter-spacing: 0.02em;
-}
+    color: #3d2717;
 
+
+}
+.page-content .outro-text {
+    font-size: 2.3cqmin;
+    line-height: 1.8;
+    margin: 0;
+    letter-spacing: 0.02em;
+}
 
 
 /* Заголовок на внутренней стороне обложки */
@@ -812,7 +827,7 @@ html, body {
     margin-top: 5%;
     margin-bottom: 15%;
     line-height: 1.4;
-    color: #2e1c10;
+    color: #4f3421;
     font-weight: normal;
 
 
@@ -824,7 +839,7 @@ html, body {
     font-size: 2.2cqmin;
     margin-top: 5%;
     opacity: 0.85;
-    color: #5c2a0e;
+    color: #3d1d0e;
     line-height: 1.5;
 }
 
@@ -910,3 +925,5 @@ html, body {
 /*    !*    transform-style: flat !important;*!*/
 /*    !*}*!*/
 }
+
+
