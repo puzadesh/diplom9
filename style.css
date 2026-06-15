@@ -24,13 +24,14 @@ html, body {
 
 /* Для каждого слайда свой цвет фона, подходящий к изображению */
 .slide[data-slide="0"] { background: linear-gradient(to bottom, #577896, #a8ad92, #474b21); }  /* зелёный — под лес/лукоморье */
-.slide[data-slide="1"] { background: #1a3a2a; }  /* тёмно-зелёный */
+.slide[data-slide="1"] { background: linear-gradient(to bottom, #becde5, #2b2a3a, #131c20); }  /* тёмно-зелёный */
 .slide[data-slide="2"] { background: linear-gradient(to bottom, #9b92b0, #c3a4ac, #e28e2e); } /* для книги */
 .slide[data-slide="3"] { background: linear-gradient(to bottom, #98747b, #7a576e, #78556c); }  /* тёмно-бордовый */
 .slide[data-slide="4"] { background: linear-gradient(to bottom, #da7d5e, #796b83, #0f1312, #141412); }  /* тёмно-бордовый */
 .slide[data-slide="5"] { background: radial-gradient(ellipse at center, #3e3c34 0%, #171a17 90%); }  /* тёмно-синий */
 .slide[data-slide="start"] {background: linear-gradient(to bottom, #829e9f, #52728b); } /* для книги */
-.slide[data-slide="11"] { background: #171a17; }  /* для финальной книги */
+.slide[data-slide="11"] { background: linear-gradient(to bottom, #130b05, #403122); }
+ /* для финальной книги */
 
 
 /* Контейнер слайдов - вертикальный скролл */

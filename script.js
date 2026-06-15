@@ -1,97 +1,97 @@
-// // === УЛУЧШЕННЫЙ SCROLL-SNAP ДЛЯ КОЛЁСИКА И ТАЧПАДА ===
-// let scrollTimeout = null;
-// let isSnapping = false;
-//
-// const slidesContainer = document.querySelector('.slides-container');
-// const slides = Array.from(document.querySelectorAll('.slide'));
-//
-// function goToSlide(index) {
-//     if (index < 0 || index >= slides.length) return;
-//
-//     isSnapping = true;
-//     slides[index].scrollIntoView({
-//         behavior: 'smooth',
-//         block: 'start'
-//     });
-//
-//     // Снимаем флаг после завершения анимации
-//     clearTimeout(scrollTimeout);
-//     scrollTimeout = setTimeout(() => {
-//         isSnapping = false;
-//     }, 900); // чуть больше длительности smooth
-// }
-//
-// slidesContainer.addEventListener('wheel', (e) => {
-//     if (isSnapping) {
-//         e.preventDefault();
-//         return;
-//     }
-//     if (Math.abs(e.deltaY) < 40) return;
-//     e.preventDefault();
-//     const currentIndex = Math.round(slidesContainer.scrollTop / window.innerHeight);
-//     let nextIndex = currentIndex;
-//     if (e.deltaY > 0) {
-//         nextIndex = Math.min(currentIndex + 1, slides.length - 1);
-//     } else {
-//         nextIndex = Math.max(currentIndex - 1, 0);
-//     }
-//     if (nextIndex !== currentIndex) {
-//         goToSlide(nextIndex);
-//     }
-// }, { passive: false });
-//
-//     document.querySelectorAll('.zoomable').forEach(img => {
-//
-//         img.addEventListener('click', () => {
-//
-//             let state = Number(img.dataset.state || 0);
-//             const zoom = img.dataset.zoom || 1.5;
-//             const origin = img.dataset.origin || 'center';
-//
-//             if (state === 0) {
-//                 img.style.transformOrigin = origin;
-//                 img.style.transform = `scale(${zoom})`;
-//                 img.dataset.state = 1;
-//
-//             }
-//             else {
-//                 img.style.transform = '';
-//                 img.dataset.state = 0;
-//             }
-//
-//         });
-//
-//     });
-// document.querySelectorAll('.scrollable').forEach(img => {
-//     // Проверяем, на каком слайде эта картинка
-//     const parentSlide = img.closest('.slide');
-//     const isSlide1 = parentSlide && parentSlide.getAttribute('data-slide') === '1';
-//
-//     let alreadyClicked = false;  // флаг для слайда 1
-//
-//     img.addEventListener('click', () => {
-//         // Если это слайд 1 и уже кликали — ничего не делаем
-//         if (isSlide1 && alreadyClicked) return;
-//
-//         let state = Number(img.dataset.state || 0);
-//         const start = img.dataset.start || 'center';
-//         const end = img.dataset.end || 'center';
-//
-//         if (state === 0) {
-//             img.style.objectPosition = end;
-//             img.dataset.state = 1;
-//
-//             if (isSlide1) alreadyClicked = true;  // запоминаем для слайда 1
-//         }
-//         else {
-//             // Для слайда 1 — не даём вернуться назад
-//             if (!isSlide1) {
-//                 img.style.objectPosition = start;
-//                 img.dataset.state = 0;
-//             }
-//         }
-//     });
-// });
+// === УЛУЧШЕННЫЙ SCROLL-SNAP ДЛЯ КОЛЁСИКА И ТАЧПАДА ===
+let scrollTimeout = null;
+let isSnapping = false;
+
+const slidesContainer = document.querySelector('.slides-container');
+const slides = Array.from(document.querySelectorAll('.slide'));
+
+function goToSlide(index) {
+    if (index < 0 || index >= slides.length) return;
+
+    isSnapping = true;
+    slides[index].scrollIntoView({
+        behavior: 'smooth',
+        block: 'start'
+    });
+
+    // Снимаем флаг после завершения анимации
+    clearTimeout(scrollTimeout);
+    scrollTimeout = setTimeout(() => {
+        isSnapping = false;
+    }, 900); // чуть больше длительности smooth
+}
+
+slidesContainer.addEventListener('wheel', (e) => {
+    if (isSnapping) {
+        e.preventDefault();
+        return;
+    }
+    if (Math.abs(e.deltaY) < 40) return;
+    e.preventDefault();
+    const currentIndex = Math.round(slidesContainer.scrollTop / window.innerHeight);
+    let nextIndex = currentIndex;
+    if (e.deltaY > 0) {
+        nextIndex = Math.min(currentIndex + 1, slides.length - 1);
+    } else {
+        nextIndex = Math.max(currentIndex - 1, 0);
+    }
+    if (nextIndex !== currentIndex) {
+        goToSlide(nextIndex);
+    }
+}, { passive: false });
+
+    document.querySelectorAll('.zoomable').forEach(img => {
+
+        img.addEventListener('click', () => {
+
+            let state = Number(img.dataset.state || 0);
+            const zoom = img.dataset.zoom || 1.5;
+            const origin = img.dataset.origin || 'center';
+
+            if (state === 0) {
+                img.style.transformOrigin = origin;
+                img.style.transform = `scale(${zoom})`;
+                img.dataset.state = 1;
+
+            }
+            else {
+                img.style.transform = '';
+                img.dataset.state = 0;
+            }
+
+        });
+
+    });
+document.querySelectorAll('.scrollable').forEach(img => {
+    // Проверяем, на каком слайде эта картинка
+    const parentSlide = img.closest('.slide');
+    const isSlide1 = parentSlide && parentSlide.getAttribute('data-slide') === '1';
+
+    let alreadyClicked = false;  // флаг для слайда 1
+
+    img.addEventListener('click', () => {
+        // Если это слайд 1 и уже кликали — ничего не делаем
+        if (isSlide1 && alreadyClicked) return;
+
+        let state = Number(img.dataset.state || 0);
+        const start = img.dataset.start || 'center';
+        const end = img.dataset.end || 'center';
+
+        if (state === 0) {
+            img.style.objectPosition = end;
+            img.dataset.state = 1;
+
+            if (isSlide1) alreadyClicked = true;  // запоминаем для слайда 1
+        }
+        else {
+            // Для слайда 1 — не даём вернуться назад
+            if (!isSlide1) {
+                img.style.objectPosition = start;
+                img.dataset.state = 0;
+            }
+        }
+    });
+});
 
 // ========== УЛУЧШЕННАЯ ЗУМ + ПАНОРАМА (слайд 0) + ЛЕШИЙ ==========
 document.querySelectorAll('.zoom-scroll').forEach(img => {
