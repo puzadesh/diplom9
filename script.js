@@ -93,7 +93,7 @@ document.querySelectorAll('.scrollable').forEach(img => {
     });
 });
 
-// ========== УЛУЧШЕННАЯ ЗУМ + ПАНОРАМА (слайд 0) + ЛЕШИЙ ==========
+// ========== ЗУМ + ДВА ТЕКСТА + ЛЕШИЙ (слайд 0, БЕЗ ПАНОРАМЫ) ==========
 document.querySelectorAll('.zoom-scroll').forEach(img => {
     const slide = img.closest('.slide');
     if (slide.dataset.slide !== "0") return;
@@ -103,46 +103,37 @@ document.querySelectorAll('.zoom-scroll').forEach(img => {
     const text3 = slide.querySelector('.text3');
     const leshy = slide.querySelector('.leshy');
     let leshyShown = false;
+    let clickCount = 0;           // счётчик кликов
 
     img.addEventListener('click', () => {
-        let state = Number(img.dataset.state || 0);
+        clickCount++;
 
-        if (state === 0) {                    // Клик 1: зум
+        if (clickCount === 1) {
+            // Первый клик: зум + текст2
             img.style.transition = 'transform 0.8s cubic-bezier(0.4, 0, 0.2, 1)';
             img.style.transformOrigin = img.dataset.origin || 'left bottom';
             img.style.transform = `scale(${img.dataset.zoom || 1.2})`;
-            img.dataset.state = 2;
 
             if (text0) text0.style.opacity = '0';
             if (text2) text2.style.opacity = '1';
+            if (text3) text3.style.opacity = '0';
 
-
-
-        } else if (state === 2) {             // Клик 3: панорама + текст 3
-            img.dataset.state = 3;
-
+        } else if (clickCount === 2) {
+            // Второй клик: текст2 исчезает, появляется текст3 + леший
             if (text2) text2.style.opacity = '0';
+            if (text3) text3.style.opacity = '1';
 
-            // Панорама
-            img.style.transition = 'object-position 1.1s cubic-bezier(0.25, 0.1, 0.25, 1)';
-            img.style.objectPosition = img.dataset.shift || '0%';
-
-            setTimeout(() => {
-                if (text3) text3.style.opacity = '1';
-            }, 300);
-// === ЛЕШИЙ — сначала появляется, потом двигается ===
+            // Леший
             if (leshy && !leshyShown) {
                 leshyShown = true;
 
-                // Шаг 1: появление (через 1150ms после клика)
                 setTimeout(() => {
                     slide.classList.add('leshy-active');
 
-                    // Шаг 2: через 400ms после появления — движение
                     setTimeout(() => {
                         slide.classList.add('leshy-moving');
                     }, 60);
-                }, 1100);
+                }, 100);
             }
         }
     });

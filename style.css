@@ -693,6 +693,20 @@ html, body {
     color: var(--third-text-color, #3c1610);  /* ← теперь будет работать */
 }
 
+/* ===== ИНДИВИДУАЛЬНЫЕ ЦВЕТА ДЛЯ ТЕКСТОВ НА СЛАЙДЕ 0 ===== */
+
+/* text0 — отдельный цвет */
+.slide[data-slide="0"] .text0 {
+    --plaque-color: rgba(209, 190, 153, 0.92);  /* цвет подложки для text0 */
+    color: #343822;                             /* цвет текста для text0 */
+}
+
+/* text2 и text3 — общие цвета (переопределяем через родителя) */
+.slide[data-slide="0"] .text2,
+.slide[data-slide="0"] .text3 {
+    --plaque-color: rgba(65, 68, 33, 0.78);  /* цвет подложки для text2 и text3 */
+    color: #e9d994;                             /* цвет текста для text2 и text3 */
+}
 
 
 /* ====================== СЛАЙД 4: ЛЕТЯЩАЯ БАБА-ЯГА ====================== */
@@ -761,25 +775,25 @@ html, body {
 /* ====================== СЛАЙД 0: ЛЕШИЙ (независимо от экрана) ====================== */
 .slide[data-slide="0"] .leshy {
     position: absolute;
-    left: -3%;                    /* % от ширины slide-content */
+    left: -40%;                    /* % от ширины slide-content */
     bottom: -60%;                /* начинаем чуть ниже */
     width: 60%;                  /* размер относительно ширины слайда */
     height: auto;
     z-index: 12;
-    opacity: 0;
+    /*opacity: 0;*/
     transform: scale(0.55);
     will-change: transform, opacity;
     pointer-events: none;
-    transition: opacity 0.7s ease-in;
+    /*transition: opacity 0.7s ease-in;*/
 
 }
-.slide[data-slide="0"].leshy-active .leshy {
-    opacity: 1;
-}
+/*.slide[data-slide="0"].leshy-active .leshy {*/
+/*    opacity: 1;*/
+/*}*/
 
 .slide[data-slide="0"].leshy-moving .leshy {
     transition: all 3.5s cubic-bezier(0.23, 0.1, 0.32, 1) 2s;
-    transform: translateY(-8%) translateX(10%) scale(0.4);   /* ← главное изменение */
+    transform: translateY(-10%) translateX(45%) scale(0.4);   /* ← главное изменение */
 }
 /* ====================== УЛУЧШЕННОЕ ОФОРМЛЕНИЕ КНИГИ ====================== */
 
