@@ -84,7 +84,6 @@ document.querySelectorAll('.scrollable').forEach(img => {
             if (isSlide1) alreadyClicked = true;  // запоминаем для слайда 1
         }
         else {
-            // Для слайда 1 — не даём вернуться назад
             if (!isSlide1) {
                 img.style.objectPosition = start;
                 img.dataset.state = 0;
@@ -93,7 +92,6 @@ document.querySelectorAll('.scrollable').forEach(img => {
     });
 });
 
-// ========== ЗУМ + ДВА ТЕКСТА + ЛЕШИЙ (слайд 0, БЕЗ ПАНОРАМЫ) ==========
 document.querySelectorAll('.zoom-scroll').forEach(img => {
     const slide = img.closest('.slide');
     if (slide.dataset.slide !== "0") return;
@@ -109,7 +107,6 @@ document.querySelectorAll('.zoom-scroll').forEach(img => {
         clickCount++;
 
         if (clickCount === 1) {
-            // Первый клик: зум + текст2
             img.style.transition = 'transform 0.8s cubic-bezier(0.4, 0, 0.2, 1)';
             img.style.transformOrigin = img.dataset.origin || 'left bottom';
             img.style.transform = `scale(${img.dataset.zoom || 1.2})`;
@@ -119,7 +116,6 @@ document.querySelectorAll('.zoom-scroll').forEach(img => {
             if (text3) text3.style.opacity = '0';
 
         } else if (clickCount === 2) {
-            // Второй клик: текст2 исчезает, появляется текст3 + леший
             if (text2) text2.style.opacity = '0';
             if (text3) text3.style.opacity = '1';
 
@@ -144,19 +140,18 @@ document.querySelectorAll('.zoom-scroll').forEach(img => {
     const defaultText = slide3.querySelector('.text[data-default]');
     const altText = slide3.querySelector('.text-alternate');
 
-let slide3Clicked = false;  // флаг, что клик уже был
+let slide3Clicked = false;
 
 slide3.addEventListener('click', () => {
-    if (slide3Clicked) return;  // если уже кликали — ничего не делаем
+    if (slide3Clicked) return;
 
     slide3Clicked = true;
-    slide3.classList.add('clicked');   // только add, не toggle
-    overlayImg.classList.add('show');   // только add
+    slide3.classList.add('clicked');
+    overlayImg.classList.add('show');
 
     defaultText.style.opacity = '0';
     altText.style.opacity = '1';
 });
-// === АНИМАЦИЯ ОТКРЫТИЯ КНИГИ НА ПЕРВОМ СЛАЙДЕ ===
 const startSlide = document.querySelector('.slide[data-slide="start"]');
 const book = document.getElementById('opening-book');
 
@@ -169,28 +164,24 @@ if (startSlide && book) {
         book.classList.add('open');
     };
 
-    // Запускаем анимацию
-    setTimeout(openBook, 600);   // чуть раньше
+    setTimeout(openBook, 600);
 
-    // Если пользователь уже начал скроллить — открываем мгновенно
     const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             if (!entry.isIntersecting && !bookAnimationDone) {
-                openBook(); // принудительно завершаем анимацию
+                openBook();
             }
         });
     }, { threshold: 0.8 });
 
     observer.observe(startSlide);
 
-    // Клик по книге
     book.addEventListener('click', () => {
         book.style.transitionDuration = '0.9s';
         openBook();
     });
 }
 
-// ========== СЛАЙД 3 (data-slide="3"): ТЕКСТ + РАЗМЫТИЕ + НАЛОЖЕНИЯ ==========
 const slide4 = document.querySelector('.slide[data-slide="3"]');
 
 if (slide4) {
@@ -198,8 +189,8 @@ if (slide4) {
     const defaultText4 = slide4.querySelector('.text[data-default]');
     const altText4 = slide4.querySelector('.text-alternate');
     const thirdText = slide4.querySelector('.text-third');
-    const overlayBlur = slide4.querySelector('.overlay-blur');      // slide4_2.png
-    const overlayImage2 = slide4.querySelector('.overlay-image-2'); // slide4_3.png
+    const overlayBlur = slide4.querySelector('.overlay-blur');
+    const overlayImage2 = slide4.querySelector('.overlay-image-2');
     const overlayImage3 = slide4.querySelector('.overlay-image-3');
 
     // Начальное состояние
@@ -213,7 +204,6 @@ if (slide4) {
         clickCount++;
 
         if (clickCount === 1) {
-            // Первый клик: меняем текст + размытие
             slide4.classList.add('clicked');
             defaultText4.style.opacity = '0';
             altText4.style.opacity = '1';
@@ -229,14 +219,12 @@ if (slide4) {
             if (overlayBlur) overlayBlur.style.opacity = '0';
             if (overlayImage2) overlayImage2.style.opacity = '0';
 
-            // Появляется slide4_4.png
             if (overlayImage3) overlayImage3.style.opacity = '1';
         }
     });
 }
 
 
-// ========== СЛАЙД 4 (data-slide="4"): ТЕКСТ + ПОЛЁТ БАБЫ-ЯГИ ==========
 const slide5 = document.querySelector('.slide[data-slide="4"]');
 
 if (slide5) {
@@ -245,7 +233,6 @@ if (slide5) {
     const altText5 = slide5.querySelector('.text-alternate');
     const flyingStupa = slide5.querySelector('.flying-stupa');
 
-    // Начальное состояние
     if (defaultText5) defaultText5.style.opacity = '1';
     if (altText5) altText5.style.opacity = '0';
 
@@ -263,7 +250,6 @@ if (slide5) {
         }
     });
 }
-// ========== ПОСЛЕДНИЙ СЛАЙД — КНИГА ОТКРЫВАЕТСЯ ПО КЛИКУ, ПОТОМ КНОПКА ==========
 const lastSlide = document.querySelector('.slide[data-slide="11"]');
 const closingBook = document.getElementById('closing-book');
 const closingText = document.getElementById('closing-text');
@@ -280,7 +266,6 @@ if (lastSlide && closingBook && closingText) {
 
     lastSlide.addEventListener('click', () => {
         if (!isOpen) {
-            // Открываем книгу
             closingBook.classList.remove('closed');
             closingBook.classList.add('open');
             isOpen = true;
@@ -296,22 +281,17 @@ if (lastSlide && closingBook && closingText) {
             }
         }
 
-        // Через 1.5 секунды показываем кнопку
         setTimeout(() => {
             if (closingText && !buttonShown) {
                 closingText.classList.add('show');
                 buttonShown = true;
             }
-        }, 1500);
+        }, 2200);
     });
 
-    // Обработчик клика по кнопке
     if (continueButton) {
         continueButton.addEventListener('click', (e) => {
-            e.stopPropagation();  // чтобы клик не сработал на слайд
-            // Здесь ссылка на продолжение
-            // window.location.href = 'https://www.culture.ru/poems/5061/ruslan-i-lyudmila-poema';  // замените на нужную ссылку
-            // Или можно открыть в новой вкладке:
+            e.stopPropagation();
             window.open('https://www.culture.ru/poems/5061/ruslan-i-lyudmila-poema', '_blank');
         });
     }
